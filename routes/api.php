@@ -14,18 +14,38 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('/login','AuthController@login');
+Route::post('/signup','AuthController@signup');
+
+Route::middleware('auth:api')->group(function (){
+    Route::get('/service', 'ServiceController@list');
+    Route::post('/service', 'ServiceController@create');
+    Route::put('/service/{service}', 'ServiceController@update');
+    Route::delete('/service/{service}', 'ServiceController@delete');
+
+    Route::get('/price-list', 'PriceListController@list');
+    Route::post('/price-list', 'PriceListController@create');
+    Route::put('/price-list/{priceList}', 'PriceListController@update');
+    Route::delete('/price-list/{priceList}', 'PriceListController@delete');
+    Route::get('/logout','AuthController@logout');
 });
 
 
 
-Route::get('/service', 'ServiceController@list');
-Route::post('/service', 'ServiceController@create');
-Route::put('/service/{service}', 'ServiceController@update');
-Route::delete('/service/{service}', 'ServiceController@delete');
 
-Route::get('/price-list', 'PriceListController@list');
-Route::post('/price-list', 'PriceListController@create');
-Route::put('/price-list/{service}', 'PriceListController@update');
-Route::delete('/price-list/{service}', 'PriceListController@delete');
+
+
+
+// Route::group([
+//     'prefix' => 'auth'
+// ], function (){
+    
+
+//     Route::group([
+//         'middleware' => 'auth:api'
+//     ], function() {
+//         Route::get('/logout','AuthController@logout');
+//         Route::get('/user','AuthController@user');
+
+//     });
+// });
