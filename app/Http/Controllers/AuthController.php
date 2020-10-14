@@ -21,8 +21,9 @@ class AuthController extends Controller
             'password' => bcrypt($request->password)
         ]);
         $user->save();
-        $token = $user->createToken('authToken')->accessToken;
-        return response()->json(['token' => $token], 200);
+        return response()->json([
+            'message' => 'Successfully created user!'
+        ], 201);
     }
 
     public function login(Request $request){
@@ -30,7 +31,7 @@ class AuthController extends Controller
             'email' => 'required|string',
             'password' => 'required|string',
         ]);
-
+            
         $credentials = request(['email','password']);
 
         if ( !Auth::attempt($credentials))
