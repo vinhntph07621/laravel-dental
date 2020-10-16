@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\DB;
 class ServiceController extends Controller
 {
     //
-    public function list(){
+    public function index(){
         $listService = Service::all();
         return response()->json($listService);
     }
     
-    public function create(Request $request){
+    public function store(Request $request){
         $createService = Service::create($request->all());
         return response()->json($createService, 201);
     }
@@ -23,7 +23,7 @@ class ServiceController extends Controller
         return response()->json($service, 200);
     }
 
-    public function delete(Service $service){
+    public function destroy(Service $service){
         $service->delete();
         return response()->json(null, 204);
     }

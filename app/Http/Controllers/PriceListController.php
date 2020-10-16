@@ -7,12 +7,12 @@ use Illuminate\Http\Request;
 class PriceListController extends Controller
 {
     //
-    public function list(){
+    public function index(){
         $priceList = PriceList::all();
         return response()->json($priceList);
     }
     
-    public function create(Request $request){
+    public function store(Request $request){
         $priceList = PriceList::create($request->all());
         return response()->json($priceList, 201);
     }
@@ -22,7 +22,7 @@ class PriceListController extends Controller
         return response()->json($priceList, 200);
     }
 
-    public function delete(PriceList $priceList){
+    public function destroy(PriceList $priceList){
         $priceList->delete();
         return response()->json(null, 204);
     }

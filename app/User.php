@@ -6,11 +6,33 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
     use Notifiable,HasApiTokens;
 
+    public function isAdmin()
+    {
+    if($this->role_id === 1)
+    { 
+        return true; 
+    } 
+    else 
+    { 
+        return false; 
+    }
+    }
+
+
+    public function hasRole($role){
+        return DB::table('users')
+        ->join('user_role','user_role.user_id','=','users.id')
+        ->join('role','role.id','=','user_role.role_id')
+        ->select('users.*','role.name')
+        ->where('role.name','=',$role)
+        ->get();
+    }
     /**
      * The attributes that are mass assignable.
      *
