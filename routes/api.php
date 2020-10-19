@@ -37,6 +37,13 @@ Route::middleware('auth:api')->group(function (){
     Route::delete('/price-list/{priceList}', 'PriceListController@destroy');
     Route::get('/logout','AuthController@logout');
 
+    Route::get('/detail-price', 'DetailPriceController@list');
+    Route::post('/detail-price', 'DetailPriceController@create');
+    Route::put('/detail-price/{detailPrice}', 'DetailPriceController@update');
+    Route::delete('/detail-price/{detailPrice}', 'DetailPriceController@delete');
+
+    
+
     Route::get('/users', 'UserController@index');
 
     Route::post('/employee','EmployeeController@store');
@@ -45,6 +52,9 @@ Route::middleware('auth:api')->group(function (){
     Route::post('/permissions', 'PermissionController@store');
     Route::put('/permissions/{per}', 'PermissionController@update');
     Route::delete('/permissions/{per}', 'PermissionController@destroy');
+
+    
+    
 });
 
 
