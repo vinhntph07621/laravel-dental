@@ -16,13 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login','AuthController@login');
 Route::post('/signup','UserController@signup');
 
-
-
-
-
-
-
-
+Route::get('/doctors','DoctorController@index');
+Route::post('/doctors','DoctorController@store');
 
 
 Route::middleware('auth:api')->group(function (){
@@ -43,6 +38,8 @@ Route::middleware('auth:api')->group(function (){
     Route::get('/logout','AuthController@logout');
 
     Route::get('/users', 'UserController@index');
+
+    Route::post('/employee','EmployeeController@store');
 
     Route::get('/permissions', 'PermissionController@index');
     Route::post('/permissions', 'PermissionController@store');
