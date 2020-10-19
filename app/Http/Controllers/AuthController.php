@@ -5,6 +5,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -40,11 +41,16 @@ class AuthController extends Controller
         $user = $request->user();
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
+        $user = DB::table('users')
+        ->where('email', '=', $request->email)
+        ->select('users.name')
+        ->get();
         
         if ($request->remember_me)
         $token->expries_at = Carbon::now()->addWeeks(1);
         $token->save();
         return response()->json([
+            'user' => $user,
             'access_token' => $tokenResult->accessToken,
             'token_type' => 'Bearer',
             'expires_at' => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString() 
