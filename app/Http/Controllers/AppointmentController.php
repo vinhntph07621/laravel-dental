@@ -29,7 +29,8 @@ class AppointmentController extends Controller
             'email' => $request->email,
             'address' => $request->address,
             'message' => $request->message,
-            'status' => $request->status
         ]);
+
+        return response()->json(200);
     }
 }

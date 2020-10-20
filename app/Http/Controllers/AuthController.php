@@ -43,7 +43,7 @@ class AuthController extends Controller
         $token = $tokenResult->token;
         $user = DB::table('users')
         ->where('email', '=', $request->email)
-        ->select('users.name')
+        ->select('users.name','users.phone','users.email')
         ->get();
         
         if ($request->remember_me)

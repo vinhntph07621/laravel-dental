@@ -18,6 +18,7 @@ class DoctorController extends Controller
     public function store(Request $request){
         $users = User::create([
             'name' => $request->first_name." ".$request->last_name,
+            'phone' => $request->phone,
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
@@ -26,7 +27,7 @@ class DoctorController extends Controller
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'birthday' => $request->birthday,
-            'phone' => $request->phone,
+            'phone' => $users->phone,
             'email' => $users->email,
             'avatar' => $request->avatar,
             'gender' => $request->gender,
