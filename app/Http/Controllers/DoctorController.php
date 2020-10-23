@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Doctor;
 use App\UserRole;
+use Illuminate\Support\Facades\Auth;
 
 class DoctorController extends Controller
 {

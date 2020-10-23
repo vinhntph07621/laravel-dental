@@ -5,17 +5,23 @@ use App\Appointment;
 use App\Doctor;
 use App\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AppointmentController extends Controller
 {
     //
     public function index(){
-        $doctors = Doctor::all();
-        return response()->json($doctors, 200);
+        $users = Auth::user();
+        return $users->id;
+        return response()->json($users, 200);
     }
 
     public function store(Request $request){
         $doctors = Doctor::all();
+        
+        $users = Auth::user();
+        $user_id = $users->id;
+        
         
         $services = Service::all();
 
@@ -29,6 +35,7 @@ class AppointmentController extends Controller
             'email' => $request->email,
             'address' => $request->address,
             'message' => $request->message,
+            'user_id' => $user_id,
         ]);
 
         return response()->json(200);

@@ -19,10 +19,15 @@ Route::post('/signup','UserController@signup');
 Route::get('/doctors','DoctorController@index');
 Route::post('/doctors','DoctorController@store');
 
-Route::post('/appointments', 'AppointmentController@store');
+Route::get('/price-list', 'PriceListController@index');
+
+
+Route::get('/services', 'ServiceController@index');
 
 Route::middleware('auth:api')->group(function (){
-    Route::get('/services', 'ServiceController@index');
+    Route::get('/appointments', 'AppointmentController@index');
+    Route::post('/appointments', 'AppointmentController@store');
+
     Route::post('/services', 'ServiceController@store');
     Route::put('/services/{service}', 'ServiceController@update');
     Route::delete('/services/{service}', 'ServiceController@destroy');
@@ -32,7 +37,6 @@ Route::middleware('auth:api')->group(function (){
     Route::put('/roles/{role}', 'RoleController@update');
     Route::delete('/roles/{role}', 'RoleController@destroy');
 
-    Route::get('/price-list', 'PriceListController@index');
     Route::post('/price-list', 'PriceListController@store');
     Route::put('/price-list/{priceList}', 'PriceListController@update');
     Route::delete('/price-list/{priceList}', 'PriceListController@destroy');
@@ -46,6 +50,7 @@ Route::middleware('auth:api')->group(function (){
     
 
     Route::get('/users', 'UserController@index');
+    Route::get('/user', 'AuthController@user');
 
     Route::post('/employee','EmployeeController@store');
 
@@ -53,7 +58,5 @@ Route::middleware('auth:api')->group(function (){
     Route::post('/permissions', 'PermissionController@store');
     Route::put('/permissions/{per}', 'PermissionController@update');
     Route::delete('/permissions/{per}', 'PermissionController@destroy');
-
-    
     
 });

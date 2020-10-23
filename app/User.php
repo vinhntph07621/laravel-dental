@@ -24,6 +24,10 @@ class User extends Authenticatable
     }
     }
 
+    public function getId()
+    {
+        return $this->id;
+    }
 
     public function hasRole($role){
         return DB::table('users')
