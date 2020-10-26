@@ -14,9 +14,9 @@ class CreateServiceTable extends Migration
     public function up()
     {
         Schema::create('service', function (Blueprint $table) {
-            $table->id();
-            $table->name();
-            $table->status();
+            $table->increments('id',11);
+            $table->string('name',255);
+            $table->tinyInteger('status',11);
             $table->timestamps();
         });
     }
