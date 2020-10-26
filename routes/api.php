@@ -23,12 +23,13 @@ Route::get('/price-list', 'PriceListController@index');
 
 
 Route::get('/services', 'ServiceController@index');
+Route::post('/services', 'ServiceController@store');
+
 
 Route::middleware('auth:api')->group(function (){
     Route::get('/appointments', 'AppointmentController@index');
     Route::post('/appointments', 'AppointmentController@store');
 
-    Route::post('/services', 'ServiceController@store');
     Route::put('/services/{service}', 'ServiceController@update');
     Route::delete('/services/{service}', 'ServiceController@destroy');
 
