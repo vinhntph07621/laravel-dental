@@ -43,14 +43,13 @@ class AuthController extends Controller
         $token = $tokenResult->token;
         $user = DB::table('users')
         ->where('email', '=', $request->email)
-        ->select('users.name','users.phone','users.email')
+        ->select('users.name','users.email')
         ->get();
         
         if ($request->remember_me)
         $token->expries_at = Carbon::now()->addWeeks(1);
         $token->save();
         return response()->json([
-            'user' => $request->user(),
             'access_token' => $tokenResult->accessToken,
             'token_type' => 'Bearer',
             'expires_at' => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString() 
