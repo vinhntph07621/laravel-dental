@@ -23,10 +23,10 @@ Route::get('/price-list', 'PriceListController@index');
 
 
 Route::get('/services', 'ServiceController@index');
-Route::post('/services', 'ServiceController@store');
 
 
 Route::middleware('auth:api')->group(function (){
+    Route::post('/services', 'ServiceController@store');
     Route::get('/appointments', 'AppointmentController@index');
     Route::post('/appointments', 'AppointmentController@store');
 
