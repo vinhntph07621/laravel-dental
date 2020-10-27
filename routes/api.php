@@ -22,7 +22,6 @@ Route::post('/doctors','DoctorController@store');
 Route::get('/price-list', 'PriceListController@index');
 Route::post('/roles', 'RoleController@store');
 
-
 Route::get('/services', 'ServiceController@index');
 
 
