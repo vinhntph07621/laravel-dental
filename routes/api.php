@@ -20,6 +20,7 @@ Route::get('/doctors','DoctorController@index');
 Route::post('/doctors','DoctorController@store');
 
 Route::get('/price-list', 'PriceListController@index');
+Route::post('/roles', 'RoleController@store');
 
 
 Route::get('/services', 'ServiceController@index');
@@ -34,7 +35,6 @@ Route::middleware('auth:api')->group(function (){
     Route::delete('/services/{service}', 'ServiceController@destroy');
 
     Route::get('/roles', 'RoleController@index');
-    Route::post('/roles', 'RoleController@store');
     Route::put('/roles/{role}', 'RoleController@update');
     Route::delete('/roles/{role}', 'RoleController@destroy');
 
