@@ -25,13 +25,11 @@ class UserController extends Controller
     public function signup(Request $request){
         $request->validate([
             'name' => 'required|string',
-            'phone' => 'required|string',
             'email' => 'required|string|unique:users',
             'password' => 'required|string'
         ]);
         $user = User::create([
             'name' => $request->name,
-            'phone' => $request->phone,
             'email' => $request->email,
             'password' => bcrypt($request->password)
         ]);
