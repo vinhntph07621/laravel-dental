@@ -35,6 +35,7 @@ Route::middleware('auth:api')->group(function (){
     Route::delete('/services/{service}', 'ServiceController@destroy');
 
     Route::get('/roles', 'RoleController@index');
+    Route::post('/roles', 'RoleController@store');
     Route::put('/roles/{role}', 'RoleController@update');
     Route::delete('/roles/{role}', 'RoleController@destroy');
 
