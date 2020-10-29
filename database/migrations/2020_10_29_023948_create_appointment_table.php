@@ -25,7 +25,7 @@ class CreateAppointmentTable extends Migration
             $table->string('email',255);
             $table->string('address',500);
             $table->string('message',500);
-            $table->integer('status');
+            $table->integer('status')->default('1');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('doctor_id')->references('id')->on('doctors');
