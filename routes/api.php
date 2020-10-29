@@ -25,6 +25,8 @@ Route::get('/services', 'ServiceController@index');
 
 
 Route::middleware('auth:api')->group(function (){
+    Route::get('/auth', 'AuthController@user');
+
     Route::get('/appointments', 'AppointmentController@index');
     Route::post('/appointments', 'AppointmentController@store');
 
@@ -48,8 +50,6 @@ Route::middleware('auth:api')->group(function (){
     Route::post('/detail-price', 'DetailPriceController@create');
     Route::put('/detail-price/{detailPrice}', 'DetailPriceController@update');
     Route::delete('/detail-price/{detailPrice}', 'DetailPriceController@delete');
-
-    
 
     Route::get('/users', 'UserController@index');
     Route::get('/user', 'AuthController@user');
