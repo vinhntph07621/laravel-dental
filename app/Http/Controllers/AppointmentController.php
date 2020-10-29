@@ -11,9 +11,8 @@ class AppointmentController extends Controller
 {
     //
     public function index(){
-        $users = Auth::user();
-        return $users->id;
-        return response()->json($users, 200);
+        $appointments = Appointment::all();
+        return response()->json($appointments, 200);
     }
 
     public function store(Request $request){
