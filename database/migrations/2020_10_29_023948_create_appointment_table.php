@@ -16,7 +16,6 @@ class CreateAppointmentTable extends Migration
         Schema::create('appointment', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('doctor_id')->unsigned();
-            $table->integer('service_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->string('patient_name',255);
             $table->integer('has_people');
@@ -29,7 +28,6 @@ class CreateAppointmentTable extends Migration
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('doctor_id')->references('id')->on('doctors');
-            $table->foreign('service_id')->references('id')->on('service');
         });
     }
 
