@@ -37,11 +37,14 @@ class AppointmentController extends Controller
             'user_id' => $user_id,
         ]);
 
-        $appHasService = AppointmentHasService::create([
-            'appointment_id' => $appointments->id,
-            'service_id' => $request->service_id,
-        ]);
-
+        $array = array();
+            for($i = 0; $i < count(array($request->service_id)); $i++){
+                $array[] = array(
+                    'appointment_id' => $appointments->id,
+                    'service_id' => $request->service_id[$i]
+                );
+            }
+        $app_has_service = DB::table('appointment_has_service')->insert($array);
         return response()->json("Complete", 200);
     }
 }
