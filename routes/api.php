@@ -17,7 +17,6 @@ Route::post('/login','AuthController@login');
 Route::post('/signup','UserController@signup');
 
 Route::get('/doctors','DoctorController@index');
-Route::post('/doctors','DoctorController@store');
 
 Route::get('/price-list', 'PriceListController@index');
 Route::post('/roles', 'RoleController@store');
@@ -28,6 +27,8 @@ Route::get('/services', 'ServiceController@index');
 Route::middleware('auth:api')->group(function (){
     Route::get('/appointments', 'AppointmentController@index');
     Route::post('/appointments', 'AppointmentController@store');
+
+    Route::post('/doctors','DoctorController@store');
 
     Route::post('/services', 'ServiceController@store');
     Route::put('/services/{service}', 'ServiceController@update');
