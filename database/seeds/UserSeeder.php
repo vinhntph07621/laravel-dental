@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
             'name' => 'Vinh Nguyen',
             'phone' => '0397361642',
             'email' => 'vinhxx7@gmail.com',
-            'password' => Hash::make('password'),
+            'password' => Hash::make('123456'),
         ]);
     }
 }
