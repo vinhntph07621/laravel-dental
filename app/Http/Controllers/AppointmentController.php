@@ -23,7 +23,9 @@ class AppointmentController extends Controller
         $users = Auth::user();
         $user_id = $users->id;
         
-        $services = Service::all();
+        // $services = Service::all();
+
+        // $array = array('appointment_id' => 1, 'service_id' => $request->service_id);
 
         $appointments = Appointment::create([
             'patient_name' => $request->patient_name,
@@ -36,15 +38,17 @@ class AppointmentController extends Controller
             'message' => $request->message,
             'user_id' => $user_id,
         ]);
-
-        $array = array();
-            for($i = 0; $i < count(array($request->service_id)); $i++){
-                $array[] = array(
-                    'appointment_id' => $appointments->id,
-                    'service_id' => $request->service_id[$i]
-                );
-            }
-        $app_has_service = DB::table('appointment_has_service')->insert($array);
+        
+        $services = array($request->service_id);
+        return $services;
+        foreach ($services as $value){
+            $array = array(
+                'appointment_id' => $appointments->id,
+                'service_id' => $services = $value,
+            );
+            return $array;
+            $app_has_service = DB::table('appointment_has_service')->insert($array);
+        }
         return response()->json("Complete", 200);
     }
 }
