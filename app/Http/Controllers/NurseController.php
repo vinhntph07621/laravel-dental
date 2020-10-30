@@ -45,7 +45,7 @@ class NurseController extends Controller
         return response()->json('Success');
     }
 
-    public function update(Request $request, Doctor $nurse){
+    public function update(Request $request, Nurse $nurse){
         $nurse->update($request->all());
         return response()->json($nurse, 200);
     }

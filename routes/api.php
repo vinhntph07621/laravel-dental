@@ -31,6 +31,7 @@ Route::middleware('auth:api')->group(function (){
     Route::post('/appointments', 'AppointmentController@store');
 
     Route::post('/doctors','DoctorController@store');
+    Route::post('/nurses','NurseController@store');
 
     Route::post('/services', 'ServiceController@store');
     Route::put('/services/{service}', 'ServiceController@update');
