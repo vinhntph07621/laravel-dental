@@ -19,26 +19,29 @@ Route::post('/signup','UserController@signup');
 Route::get('/doctors','DoctorController@index');
 
 Route::get('/price-list', 'PriceListController@index');
-Route::post('/roles', 'RoleController@store');
 
 Route::get('/services', 'ServiceController@index');
 
 
 Route::middleware('auth:api')->group(function (){
     Route::get('/auth', 'AuthController@user');
-
+    
     Route::get('/appointments', 'AppointmentController@index');
     Route::post('/appointments', 'AppointmentController@store');
-
-    Route::post('/doctors','DoctorController@store');
+    
+    Route::get('/doctors','DoctorController@index'); 
+    Route::post('/doctors','DoctorController@store'); 
+    
+    Route::get('/nurses','DoctorController@index'); 
     Route::post('/nurses','NurseController@store');
-
+    
     Route::post('/services', 'ServiceController@store');
     Route::put('/services/{service}', 'ServiceController@update');
     Route::delete('/services/{service}', 'ServiceController@destroy');
-
+    
     Route::get('/roles', 'RoleController@index');
     Route::post('/roles', 'RoleController@store');
+    
     Route::put('/roles/{role}', 'RoleController@update');
     Route::delete('/roles/{role}', 'RoleController@destroy');
 
@@ -54,8 +57,6 @@ Route::middleware('auth:api')->group(function (){
 
     Route::get('/users', 'UserController@index');
     Route::get('/user', 'AuthController@user');
-
-    Route::post('/employee','EmployeeController@store');
 
     Route::get('/permissions', 'PermissionController@index');
     Route::post('/permissions', 'PermissionController@store');
