@@ -39,16 +39,16 @@ class AppointmentController extends Controller
             'user_id' => $user_id,
         ]);
         
-        $services = array($request->service_id);
-        return $services;
-        foreach ($services as $value){
+        $services = $request->service_id;
+        $integerIDs = array_map('intval', explode(',', $services));
+
+        for ($i = 0; $i < count($integerIDs); $i++){
             $array = array(
                 'appointment_id' => $appointments->id,
-                'service_id' => $services = $value,
+                'service_id' => $integerIDs[$i],
             );
-            return $array;
             $app_has_service = DB::table('appointment_has_service')->insert($array);
-        }
+        }   
         return response()->json("Complete", 200);
     }
 }
