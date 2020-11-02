@@ -54,7 +54,10 @@ class DoctorController extends Controller
             'role_id' => 2,
             'user_id' => $users->id
         ]);
-        return $avatars;
+        return response()->json([
+            'user' => $users,
+            'doctor' => $doctor
+        ]);
     }
 
     public function update(Request $request, Doctor $doctor){
