@@ -17,9 +17,17 @@ class DoctorController extends Controller
     }
 
     public function store(Request $request){
-        $payload = file_get_contents('https://firebasestorage.googleapis.com/v0/b/example.appspot.com/o/Photos%2Fpic.jpeg');
-        $data = json_decode($payload); 
-        return $data->downloadTokens; 
+        $avatars = $request->avatar;
+        if($request->hasFile('avatar')){
+            $file = $request->file('avatar');
+            $destinationPath = 'uploads';
+            $file->move($destinationPath,$file->getClientOriginalName());
+            $link_img = ''.$file->getClientOriginalName();
+            $avatars = $link_img;
+        }
+        else{
+            $avatars ='';
+        }
 
         $users = User::create([
             'name' => $request->first_name." ".$request->last_name,
@@ -34,7 +42,7 @@ class DoctorController extends Controller
             'birthday' => $request->birthday,
             'phone' => $users->phone,
             'email' => $users->email,
-            'avatar' => $request->avatar,
+            'avatar' => $avatars,
             'gender' => $request->gender,
             'address' => $request->address,
             'short_bio' => $request->short_bio,
