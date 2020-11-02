@@ -18,7 +18,7 @@ class CreateDetailPriceListTable extends Migration
             $table->integer('price_list_id')->unsigned();
             $table->string('unit');
             $table->integer('status');
-            $table->foreign('price_list_id')->references('id')->on('price_list_id');
+            $table->foreign('price_list_id')->references('id')->on('price_list');
             $table->timestamps();
         });
     }
