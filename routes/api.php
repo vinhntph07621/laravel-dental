@@ -29,6 +29,7 @@ Route::middleware('auth:api')->group(function (){
     Route::post('/appointments', 'AppointmentController@store');
     
     Route::post('/doctors','DoctorController@store'); 
+    Route::post('/doctors/{doctor}','DoctorController@edit'); 
     Route::delete('/doctor/{user}','DoctorController@delete'); 
     
     Route::get('/nurses','DoctorController@index'); 

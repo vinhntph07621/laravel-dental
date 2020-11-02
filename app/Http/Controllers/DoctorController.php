@@ -16,6 +16,13 @@ class DoctorController extends Controller
         return response()->json($doctors, 200);
     }
 
+    public function edit(Doctor $doctor){
+        $doctor = DB::table('doctors')
+        ->where('id','=',$doctor)
+        ->get();
+        return response()->json($doctors, 200);
+    }
+
     public function store(Request $request){
         $avatars = $request->avatar;
         if($request->hasFile('avatar')){
