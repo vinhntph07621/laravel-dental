@@ -17,9 +17,7 @@ class DoctorController extends Controller
     }
 
     public function show(Doctor $doctor){
-        $doctor = DB::table('doctors')
-        ->where('id','=',$doctor)
-        ->get();
+        $doctor = Doctor::find($doctor);
         return response()->json($doctor, 200);
     }
 
