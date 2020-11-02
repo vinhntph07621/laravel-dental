@@ -16,7 +16,7 @@ class DoctorController extends Controller
         return response()->json($doctors, 200);
     }
 
-    public function edit(Doctor $doctor){
+    public function show(Doctor $doctor){
         $doctor = DB::table('doctors')
         ->where('id','=',$doctor)
         ->get();
