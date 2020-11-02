@@ -10,8 +10,6 @@ class DetailPriceController extends Controller
 {
     public function index(){
         $detailPrice = DB::table('price_list')
-        ->join('detail_price_list','detail_price_list.price_list_id','=','price_list.id')
-        ->select('detail_price_list.*','price_list.name as name_price')
         ->get();
         return response()->json($detailPrice, 200);
     }
