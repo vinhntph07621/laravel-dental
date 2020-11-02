@@ -70,8 +70,7 @@ class AuthController extends Controller
         $user_id = $users->id;
         $currentUser = DB::table('users')
         ->where('id','=',$user_id);
-        return $currentUser;
-        return response()->json($request->user());
+        return response()->json($currentUser, 200);
     }
 
 }
