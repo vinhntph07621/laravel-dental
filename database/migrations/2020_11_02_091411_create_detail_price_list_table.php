@@ -16,6 +16,7 @@ class CreateDetailPriceListTable extends Migration
         Schema::create('detail_price_list', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('price_list_id')->unsigned();
+            $table->string('name');
             $table->string('unit');
             $table->integer('status');
             $table->foreign('price_list_id')->references('id')->on('price_list');
