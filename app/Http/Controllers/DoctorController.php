@@ -17,12 +17,12 @@ class DoctorController extends Controller
     }
 
     public function store(Request $request){
-        if ($request->hasFile('avatar')) {
-            $extension = $request->file('avatar')->getClientOriginalExtension();
-            $file = $request->file('avatar');
-            $photoFileName = 'photo-' . time() . '.' . $extension;
-            $photo = $file->storeAs('public/photos', $photoFileName);
-            $avatars = $photoFileName;
+        if ($request->image != ''){   
+            $path = 'files/';
+            $file = $request->file('image');
+            $name=$file->getClientOriginalName();
+            $file->move($path, $name);  
+            $avatars = $name;  
         }
 
         $users = User::create([
@@ -38,7 +38,7 @@ class DoctorController extends Controller
             'birthday' => $request->birthday,
             'phone' => $users->phone,
             'email' => $users->email,
-            'avatar' => $avatars,
+            'avatar' => $request->avatars,
             'gender' => $request->gender,
             'address' => $request->address,
             'short_bio' => $request->short_bio,
@@ -61,12 +61,7 @@ class DoctorController extends Controller
         return response()->json($doctor, 200);
     }
 
-    public function delete($user_id){
-        DB::table("user_role")->where("user_id", $user_id)->delete();
-        DB::table("doctors")->where("user_id", $user_id)->delete();
-        DB::table("users")->where("id", $user_id)->delete();
-        return response()->json(null, 204);
+    public function show(Doctor $doctor){
+        return response()->json($doctor, 200);
     }
-
-    
 }
