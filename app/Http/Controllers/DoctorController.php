@@ -22,7 +22,7 @@ class DoctorController extends Controller
             $file = $request->file('avatar');
             $destinationPath = 'uploads';
             $file->move($destinationPath,$file->getClientOriginalName());
-            $link_img = ''.$file->getClientOriginalName();
+            $link_img = 'http://dental-project.herokuapp.com/uploads/'.$file->getClientOriginalName();
             $avatars = $link_img;
         }
         else{
