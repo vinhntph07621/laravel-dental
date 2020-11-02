@@ -49,4 +49,7 @@ class NurseController extends Controller
         $nurse->update($request->all());
         return response()->json($nurse, 200);
     }
+    public function show(Nurse $nurse){
+        return response()->json($nurse, 200);
+    }
 }

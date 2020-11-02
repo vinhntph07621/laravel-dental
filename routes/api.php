@@ -28,10 +28,15 @@ Route::middleware('auth:api')->group(function (){
     Route::get('/appointments', 'AppointmentController@index');
     Route::post('/appointments', 'AppointmentController@store');
     
+    Route::get('/doctors/{doctor}','DoctorController@show');
     Route::post('/doctors','DoctorController@store'); 
+    Route::put('/doctors/{doctor}','DoctorController@update');
+     
     
-    Route::get('/nurses','DoctorController@index'); 
+    Route::get('/nurses','NurseController@index'); 
+    Route::get('/nurses/{nurse}','NurseController@show');
     Route::post('/nurses','NurseController@store');
+    Route::put('/nurses/{nurse}','NurseController@update');
     
     Route::post('/services', 'ServiceController@store');
     Route::put('/services/{service}', 'ServiceController@update');

@@ -65,5 +65,7 @@ class DoctorController extends Controller
         return response()->json($doctor, 200);
     }
 
-    
+    public function show(Doctor $doctor){
+        return response()->json($doctor, 200);
+    }
 }
