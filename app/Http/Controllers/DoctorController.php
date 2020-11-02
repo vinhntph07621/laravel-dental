@@ -65,5 +65,12 @@ class DoctorController extends Controller
         return response()->json($doctor, 200);
     }
 
+    public function delete($user_id){
+        DB::table("user_role")->where("user_id", $user_id)->delete();
+        DB::table("doctors")->where("user_id", $user_id)->delete();
+        DB::table("users")->where("id", $user_id)->delete();
+        return response()->json(null, 204);
+    }
+
     
 }
