@@ -9,7 +9,7 @@ use App\detailPrice;
 class DetailPriceController extends Controller
 {
     public function index(){
-        $detailPrice = DB::table('price_list')
+        $detailPrice = DB::table('detail_price_list')
         ->get();
         return response()->json($detailPrice, 200);
     }
