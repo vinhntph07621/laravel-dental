@@ -17,9 +17,11 @@ Route::post('/login','AuthController@login');
 Route::post('/signup','UserController@signup');
 
 Route::get('/price-list', 'PriceListController@index');
+Route::get('/detail-price', 'DetailPriceController@index');
 
 Route::get('/doctors','DoctorController@index'); 
 Route::get('/doctor/{id}','DoctorController@show'); 
+
 Route::get('/services', 'ServiceController@index');
 
 
@@ -50,8 +52,7 @@ Route::middleware('auth:api')->group(function (){
     Route::delete('/price-list/{priceList}', 'PriceListController@destroy');
     Route::get('/logout','AuthController@logout');
 
-    Route::get('/detail-price', 'DetailPriceController@list');
-    Route::post('/detail-price', 'DetailPriceController@create');
+    Route::post('/detail-price', 'DetailPriceController@store');
     Route::put('/detail-price/{detailPrice}', 'DetailPriceController@update');
     Route::delete('/detail-price/{detailPrice}', 'DetailPriceController@delete');
 

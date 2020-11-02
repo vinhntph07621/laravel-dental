@@ -8,7 +8,7 @@ use App\detailPrice;
 
 class DetailPriceController extends Controller
 {
-    public function list(){
+    public function index(){
         $detailPrice = DB::table('price_list')
         ->join('detail_price_list','detail_price_list.price_list_id','=','price_list.id')
         ->select('detail_price_list.*','price_list.name as name_price')
@@ -16,7 +16,7 @@ class DetailPriceController extends Controller
         return response()->json($detailPrice, 200);
     }
     
-    public function create(Request $request){
+    public function store(Request $request){
         $detailPrice = detailPrice::create($request->all());
         return response()->json($detailPrice, 201);
     }
