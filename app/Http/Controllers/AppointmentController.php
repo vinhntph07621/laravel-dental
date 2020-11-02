@@ -18,6 +18,7 @@ class AppointmentController extends Controller
     }
 
     public function store(Request $request){
+        
         $doctors = Doctor::all();
         
         $users = Auth::user();
