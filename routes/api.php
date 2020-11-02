@@ -18,6 +18,7 @@ Route::post('/signup','UserController@signup');
 
 Route::get('/price-list', 'PriceListController@index');
 
+Route::get('/doctors','DoctorController@index'); 
 Route::get('/services', 'ServiceController@index');
 
 
@@ -27,7 +28,6 @@ Route::middleware('auth:api')->group(function (){
     Route::get('/appointments', 'AppointmentController@index');
     Route::post('/appointments', 'AppointmentController@store');
     
-    Route::get('/doctors','DoctorController@index'); 
     Route::post('/doctors','DoctorController@store'); 
     
     Route::get('/nurses','DoctorController@index'); 
