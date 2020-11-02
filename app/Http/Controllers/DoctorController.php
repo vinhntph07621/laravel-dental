@@ -17,41 +17,17 @@ class DoctorController extends Controller
     }
 
     public function store(Request $request){
-        $avatar = $request->avatar; //base64 string from frontend
-
-        $images      = app('firebase.firestore')->database()->collection('images')->document('defT5uT7SDu9K5RFtIdl');
-        
-        $firebase_storage_path = 'images/';
-        
-        $name          = $images->id();
-        
-        $localfolder = public_path('firebase-temp-uploads') .'/';
-        
-        if (!file_exists($localfolder)) {
-               mkdir($localfolder, 0777, true);
+        $avatars = $request->avatar;
+        if($request->hasFile('avatar')){
+            $file = $request->file('avatar');
+            $destinationPath = 'uploads';
+            $file->move($destinationPath,$file->getClientOriginalName());
+            $link_img = ''.$file->getClientOriginalName();
+            $avatars = $link_img;
         }
-        
-        $parts = explode(";base64,", $image);
-        $type_aux = explode("image/", $parts[0]);
-        $type = $aux[1];
-        $base64 = base64_decode($parts[1]);
-        
-        $file = $name . '.png';
-        
-        if (file_put_contents($localfolder . $file, $base64)) {
-        
-               $uploadedfile = fopen($localfolder . $file, 'r');
-        
-               app('firebase.storage')->getBucket()->upload($uploadedfile, ['name' => $firebase_storage_path . $name]);
-        
-               //will remove from local laravel folder
-               unlink($localfolder . $file);
-        
-               echo 'success';
-        } else {
-               echo 'error';
+        else{
+            $avatars ='';
         }
-
 
         $users = User::create([
             'name' => $request->first_name." ".$request->last_name,
@@ -66,7 +42,7 @@ class DoctorController extends Controller
             'birthday' => $request->birthday,
             'phone' => $users->phone,
             'email' => $users->email,
-            'avatar' => $avatar,
+            'avatar' => $avatars,
             'gender' => $request->gender,
             'address' => $request->address,
             'short_bio' => $request->short_bio,
@@ -78,7 +54,7 @@ class DoctorController extends Controller
             'role_id' => 2,
             'user_id' => $users->id
         ]);
-        return $avatar;
+        return $avatars;
     }
 
     public function update(Request $request, Doctor $doctor){
