@@ -17,6 +17,42 @@ class DoctorController extends Controller
     }
 
     public function store(Request $request){
+        $avatar = $request->avatar; //base64 string from frontend
+
+        $images      = app('firebase.firestore')->database()->collection('images')->document('defT5uT7SDu9K5RFtIdl');
+        
+        $firebase_storage_path = 'images/';
+        
+        $name          = $images->id();
+        
+        $localfolder = public_path('firebase-temp-uploads') .'/';
+        
+        if (!file_exists($localfolder)) {
+               mkdir($localfolder, 0777, true);
+        }
+        
+        $parts = explode(";base64,", $image);
+        $type_aux = explode("image/", $parts[0]);
+        $type = $aux[1];
+        $base64 = base64_decode($parts[1]);
+        
+        $file = $name . '.png';
+        
+        if (file_put_contents($localfolder . $file, $base64)) {
+        
+               $uploadedfile = fopen($localfolder . $file, 'r');
+        
+               app('firebase.storage')->getBucket()->upload($uploadedfile, ['name' => $firebase_storage_path . $name]);
+        
+               //will remove from local laravel folder
+               unlink($localfolder . $file);
+        
+               echo 'success';
+        } else {
+               echo 'error';
+        }
+
+
         $users = User::create([
             'name' => $request->first_name." ".$request->last_name,
             'phone' => $request->phone,
@@ -30,7 +66,7 @@ class DoctorController extends Controller
             'birthday' => $request->birthday,
             'phone' => $users->phone,
             'email' => $users->email,
-            'avatar' => $request->avatar,
+            'avatar' => $avatar,
             'gender' => $request->gender,
             'address' => $request->address,
             'short_bio' => $request->short_bio,
@@ -42,7 +78,7 @@ class DoctorController extends Controller
             'role_id' => 2,
             'user_id' => $users->id
         ]);
-        return response()->json('Success');
+        return $avatar;
     }
 
     public function update(Request $request, Doctor $doctor){
