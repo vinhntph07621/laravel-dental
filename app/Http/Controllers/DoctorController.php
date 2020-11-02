@@ -56,7 +56,7 @@ class DoctorController extends Controller
         ]);
         return response()->json([
             'user' => $users,
-            'doctor' => $doctor
+            'doctor' => $doctors
         ]);
     }
 
