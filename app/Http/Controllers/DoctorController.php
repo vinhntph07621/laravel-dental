@@ -17,12 +17,16 @@ class DoctorController extends Controller
     }
 
     public function store(Request $request){
-        if ($request->image != ''){   
-            $path = 'files/';
-            $file = $request->file('image');
-            $name=$file->getClientOriginalName();
-            $file->move($path, $name);  
-            $avatars = $name;  
+        $avatars = $request->avatar;
+        if($request->hasFile('avatar')){
+            $file = $request->file('avatar');
+            $name = $file->getClientOriginalName();
+            $file->move(public_path().'/files/', $name);
+            $link_img = 'http://dental-project.herokuapp.com/uploads/'.$file->getClientOriginalName();
+            $avatars = $link_img;
+        }
+        else{
+            $avatars ='';
         }
 
         $users = User::create([
@@ -38,7 +42,7 @@ class DoctorController extends Controller
             'birthday' => $request->birthday,
             'phone' => $users->phone,
             'email' => $users->email,
-            'avatar' => $request->avatars,
+            'avatar' => $avatars,
             'gender' => $request->gender,
             'address' => $request->address,
             'short_bio' => $request->short_bio,
@@ -61,7 +65,12 @@ class DoctorController extends Controller
         return response()->json($doctor, 200);
     }
 
-    public function show(Doctor $doctor){
-        return response()->json($doctor, 200);
+    public function delete($user_id){
+        DB::table("user_role")->where("user_id", $user_id)->delete();
+        DB::table("doctors")->where("user_id", $user_id)->delete();
+        DB::table("users")->where("id", $user_id)->delete();
+        return response()->json(null, 204);
     }
+
+    
 }
