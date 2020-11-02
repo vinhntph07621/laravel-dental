@@ -20,7 +20,7 @@ class DoctorController extends Controller
         $doctor = DB::table('doctors')
         ->where('id','=',$doctor)
         ->get();
-        return response()->json($doctors, 200);
+        return response()->json($doctor, 200);
     }
 
     public function store(Request $request){
