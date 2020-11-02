@@ -64,8 +64,13 @@ class AuthController extends Controller
         ]);
     }
 
-    public function user(Request $request)
+    public function user()
     {
+        $users = Auth::user();
+        $user_id = $users->id;
+        $currentUser = DB::table('users')
+        ->where('id','=',$user_id);
+        return $currentUser;
         return response()->json($request->user());
     }
 
