@@ -17,16 +17,12 @@ class DoctorController extends Controller
     }
 
     public function store(Request $request){
-        $avatars = $request->avatar;
-        if($request->hasFile('avatar')){
+        if ($request->hasFile('avatar')) {
+            $extension = $request->file('avatar')->getClientOriginalExtension();
             $file = $request->file('avatar');
-            $name = $file->getClientOriginalName();
-            $file->move(public_path().'/files/', $name);
-            $link_img = 'http://dental-project.herokuapp.com/uploads/'.$file->getClientOriginalName();
-            $avatars = $link_img;
-        }
-        else{
-            $avatars ='';
+            $photoFileName = 'photo-' . time() . '.' . $extension;
+            $photo = $file->storeAs('public/photos', $photoFileName);
+            $avatars = $photoFileName;
         }
 
         $users = User::create([
