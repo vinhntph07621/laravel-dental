@@ -16,8 +16,8 @@ class DoctorController extends Controller
         return response()->json($doctors, 200);
     }
 
-    public function show(Doctor $doctor){
-        $doctor = Doctor::find($doctor);
+    public function show($id){
+        $doctor = Doctor::find($id);
         return response()->json($doctor, 200);
     }
 

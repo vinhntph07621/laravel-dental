@@ -19,7 +19,7 @@ Route::post('/signup','UserController@signup');
 Route::get('/price-list', 'PriceListController@index');
 
 Route::get('/doctors','DoctorController@index'); 
-Route::get('/doctor/{doctor}','DoctorController@show'); 
+Route::get('/doctor/{id}','DoctorController@show'); 
 Route::get('/services', 'ServiceController@index');
 
 
