@@ -5,9 +5,7 @@ use App\User;
 use App\Permission;
 use App\Role;
 use App\UserRole;
-
 use Illuminate\Support\Facades\DB;
-
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -44,6 +42,15 @@ class UserController extends Controller
         return response()->json([
             'message' => 'Successfully created user!'
         ], 201);
+    }
+
+    public function update(Request $request, User $user){
+        $user->update([
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'password' => bcrypt($request->password)
+        ]);
+        return response()->json($user, 200);
     }
     
 
