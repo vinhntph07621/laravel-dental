@@ -25,6 +25,7 @@ Route::get('/doctor/{id}','DoctorController@show');
 Route::get('/services', 'ServiceController@index');
 
 
+
 Route::middleware('auth:api')->group(function (){
     Route::get('/auth', 'AuthController@user');
     
