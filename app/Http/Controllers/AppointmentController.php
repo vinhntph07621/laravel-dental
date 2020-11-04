@@ -7,6 +7,7 @@ use App\Service;
 use App\AppointmentHasService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class AppointmentController extends Controller
@@ -22,6 +23,9 @@ class AppointmentController extends Controller
         $user_id = $users->id;
 
         $appointments = DB::table('appointment')
+        ->join('doctors','doctors.id','=','appointment.doctor_id')
+        ->join('appointment_has_service','appointment_has_service.service_id','=','appointment.id')
+        ->select('doctors.first_name','appointment.patient_name','appointment.date_time','appointment.has_people','appointment_has_service.service_id')
         ->where('user_id','=',$user_id)
         ->get();
 
