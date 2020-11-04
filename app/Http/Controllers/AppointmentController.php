@@ -25,6 +25,10 @@ class AppointmentController extends Controller
         $hasService = DB::table('appointment_has_service')
         ->join('service','service.id','=','appointment_has_service.service_id')
         ->get();
+        
+        $collection = collect($hasService);
+        $collection->filter();
+        return $collection;
 
         $appointments = DB::table('appointment')
         ->join('doctors','doctors.id','=','appointment.doctor_id')
