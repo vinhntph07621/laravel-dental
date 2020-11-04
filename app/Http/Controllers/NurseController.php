@@ -49,4 +49,5 @@ class NurseController extends Controller
         $nurse->update($request->all());
         return response()->json($nurse, 200);
     }
+
 }

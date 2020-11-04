@@ -31,6 +31,7 @@ Route::middleware('auth:api')->group(function (){
     Route::get('/user-show', 'AuthController@show');
     
     Route::get('/appointments', 'AppointmentController@index');
+    Route::get('/appointment', 'AppointmentController@show');
     Route::post('/appointments', 'AppointmentController@store');
     
     Route::post('/doctors','DoctorController@store'); 

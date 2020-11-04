@@ -13,7 +13,18 @@ class AppointmentController extends Controller
 {
     //
     public function index(){
-        $appointments = Appointment::all();
+        $appointments = Appointment::all(); 
+        return response()->json($appointments, 200);
+    }
+
+    public function show(){
+        $users = Auth::user();
+        $user_id = $users->id;
+
+        $appointments = DB::table('users')
+        ->where('user_id','=',$user_id)
+        ->get();
+
         return response()->json($appointments, 200);
     }
 
