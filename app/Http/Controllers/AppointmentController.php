@@ -31,21 +31,8 @@ class AppointmentController extends Controller
         
         $appointments = Appointment::with('service')
         ->get();
-        // $collection = collect([
-        //     'first' => ['id'=>1, 'name'=>'Hardik', 'city' => 'Mumbai', 'country' => 'India'],
-        //     'second' => ['id'=>2, 'name'=>'Vimal', 'city' => 'New York', 'country' => 'US'],
-        //     'third' => ['id'=>3, 'name'=>'Harshad', 'city' => 'Gujarat', 'country' => 'India'],
-        //     'fourth' => ['id'=>4, 'name'=>'Harsukh', 'city' => 'New York', 'country' => 'US'],
-        // ]);
-  
-        // $grouped = $collection->groupBy(function ($item, $key) {
-        //     return $item['name'];
-        // });
-        return $appointments;    
-
-        return response()->json([
-            'appointment' => $appointments,
-        ]);
+        
+        return response()->json($appointments);
     }
 
     public function store(Request $request){
