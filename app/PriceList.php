@@ -13,4 +13,9 @@ class PriceList extends Model
         protected $fillable = [
             'name', 'status'
         ];
+
+    public function detailPrice()
+    {
+        return $this->hasMany(detailPrice::class);
+    }
 }

@@ -10,8 +10,8 @@ class PriceListController extends Controller
 {
     //
     public function index(){
-        $result = detailPrice::with('price_list')->get();
-        return response()->json();
+        $result = PriceList::with('detailPrice')->get();
+        return response()->json($result);
     }
     
     public function store(Request $request){

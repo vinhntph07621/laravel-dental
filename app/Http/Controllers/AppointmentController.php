@@ -22,20 +22,26 @@ class AppointmentController extends Controller
         $users = Auth::user();
         $user_id = $users->id;
 
+
         $hasService = DB::table('appointment_has_service')
-        ->join('service','service.id','=','appointment_has_service.service_id')
+        // ->select('appointment_has_service.appointment_id','service.name')
+        
+        // ->join('service','service.id','=','appointment_has_service.service_id')
         ->get();
         
-        $collection = collect($hasService);
-        $collection->filter();
-        return $collection;
-
-        $appointments = DB::table('appointment')
-        ->join('doctors','doctors.id','=','appointment.doctor_id')
-        ->select('doctors.first_name','appointment.patient_name','appointment.date_time','appointment.has_people', $hasService)
-        ->where('appointment.user_id','=',$user_id)
+        $appointments = Appointment::with('service')
         ->get();
-
+        // $collection = collect([
+        //     'first' => ['id'=>1, 'name'=>'Hardik', 'city' => 'Mumbai', 'country' => 'India'],
+        //     'second' => ['id'=>2, 'name'=>'Vimal', 'city' => 'New York', 'country' => 'US'],
+        //     'third' => ['id'=>3, 'name'=>'Harshad', 'city' => 'Gujarat', 'country' => 'India'],
+        //     'fourth' => ['id'=>4, 'name'=>'Harsukh', 'city' => 'New York', 'country' => 'US'],
+        // ]);
+  
+        // $grouped = $collection->groupBy(function ($item, $key) {
+        //     return $item['name'];
+        // });
+        return $appointments;    
 
         return response()->json([
             'appointment' => $appointments,

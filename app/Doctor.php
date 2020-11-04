@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Appointment;
 use Illuminate\Database\Eloquent\Model;
 
 class Doctor extends Model
@@ -16,4 +17,9 @@ class Doctor extends Model
     {
        return ucfirst($this->first_name) . ' ' . ucfirst($this->last_name);
     }
+
+    public function appointment()
+{
+    return $this->hasMany(Appointment::class);
+}
 }
