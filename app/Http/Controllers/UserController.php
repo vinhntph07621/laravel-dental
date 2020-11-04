@@ -57,9 +57,4 @@ class UserController extends Controller
         return response()->json($user, 200);
     }
 
-    public function delete(Request $request, User $user){
-        
-    }
-    
-
 }

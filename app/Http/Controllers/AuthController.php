@@ -32,7 +32,7 @@ class AuthController extends Controller
             'email' => 'required|string',
             'password' => 'required|string',
         ]);
-        
+            
         $credentials = request(['email','password']);
 
         if ( !Auth::attempt($credentials))
@@ -70,16 +70,9 @@ class AuthController extends Controller
         $user_id = $users->id;
         $currentUser = DB::table('users')
         ->where('id','=',$user_id)
-        ->select('users.name','users.email','users.phone','users.password')
+        ->select('users.name','users.email','users.phone')
         ->get();
         return response()->json($currentUser, 200);
-    }
-    
-    public function show(Request $request){
-        $showUser = DB::table('users')
-        ->where('email', '=', $request->email)
-        ->get();
-        return response()->json($showUser, 200);
     }
 
 }
