@@ -21,6 +21,10 @@ class UserController extends Controller
     }   
 
     public function signup(Request $request){
+        $hashed = Hash::make('password', [
+            'rounds' => 10,
+        ]);
+
         $request->validate([
             'name' => 'required|string',
             'email' => 'required|string|unique:users',
@@ -30,7 +34,7 @@ class UserController extends Controller
             'name' => $request->name,
             'phone' => $request->phone,
             'email' => $request->email,
-            'password' => md5($request->password)
+            'password' => $hashed
         ]);
 
         $user_role = UserRole::create([
@@ -51,6 +55,10 @@ class UserController extends Controller
             'password' => bcrypt($request->password)
         ]);
         return response()->json($user, 200);
+    }
+
+    public function delete(Request $request, User $user){
+        
     }
     
 
