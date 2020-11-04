@@ -21,7 +21,7 @@ class AppointmentController extends Controller
         $users = Auth::user();
         $user_id = $users->id;
 
-        $appointments = DB::table('users')
+        $appointments = DB::table('appointment')
         ->where('user_id','=',$user_id)
         ->get();
 
