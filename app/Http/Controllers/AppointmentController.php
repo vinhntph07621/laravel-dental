@@ -28,7 +28,14 @@ class AppointmentController extends Controller
         ->where('appointment.user_id','=',$user_id)
         ->get();
 
-        return response()->json($appointments, 200);
+        $hasService = DB::table('appointment_has_service')
+        ->join('service','service.id','=','appointment_has_service.service_id')
+        ->get();
+
+        return response()->json([
+            'appointment' => $appointments,
+            $hasService
+        ]);
     }
 
     public function store(Request $request){
