@@ -18,6 +18,11 @@ Route::post('/signup','UserController@signup');
 
 Route::get('/price-list', 'PriceListController@index');
 
+Route::get('/contacts','ContactController@index'); 
+Route::post('/contacts','ContactController@store');
+Route::put('/contacts/{contact}','ContactController@update'); 
+Route::delete('/contacts/{contact}','ContactController@destroy');
+
 Route::get('/doctors','DoctorController@index'); 
 Route::get('/services', 'ServiceController@index');
 
