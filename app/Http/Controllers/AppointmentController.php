@@ -22,19 +22,19 @@ class AppointmentController extends Controller
         $users = Auth::user();
         $user_id = $users->id;
 
-        $appointments = DB::table('appointment')
-        ->join('doctors','doctors.id','=','appointment.doctor_id')
-        ->select('doctors.first_name','appointment.patient_name','appointment.date_time','appointment.has_people')
-        ->where('appointment.user_id','=',$user_id)
-        ->get();
-
         $hasService = DB::table('appointment_has_service')
         ->join('service','service.id','=','appointment_has_service.service_id')
         ->get();
 
+        $appointments = DB::table('appointment')
+        ->join('doctors','doctors.id','=','appointment.doctor_id')
+        ->select('doctors.first_name','appointment.patient_name','appointment.date_time','appointment.has_people', $hasService)
+        ->where('appointment.user_id','=',$user_id)
+        ->get();
+
+
         return response()->json([
             'appointment' => $appointments,
-            $hasService
         ]);
     }
 
