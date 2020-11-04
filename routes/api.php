@@ -28,6 +28,7 @@ Route::get('/services', 'ServiceController@index');
 
 Route::middleware('auth:api')->group(function (){
     Route::get('/auth', 'AuthController@user');
+    Route::get('/user-show', 'AuthController@show');
     
     Route::get('/appointments', 'AppointmentController@index');
     Route::post('/appointments', 'AppointmentController@store');

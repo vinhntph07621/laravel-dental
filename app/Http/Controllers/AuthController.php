@@ -74,5 +74,12 @@ class AuthController extends Controller
         ->get();
         return response()->json($currentUser, 200);
     }
+    
+    public function show(Request $request){
+        $showUser = DB::table('users')
+        ->where('email', '=', $request->email)
+        ->get();
+        return response()->json($showUser, 200);
+    }
 
 }
