@@ -5,6 +5,7 @@ use App\User;
 use App\Permission;
 use App\Role;
 use App\UserRole;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -58,7 +59,7 @@ class UserController extends Controller
     }
 
     public function delete(Request $request, User $user){
-        
+
     }
     
 
