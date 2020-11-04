@@ -22,7 +22,7 @@ class UserController extends Controller
     }   
 
     public function signup(Request $request){
-        $hashed = Hash::make('password', [
+        $hashed = Hash::make($request->password, [
             'rounds' => 10,
         ]);
 
