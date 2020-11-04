@@ -417,6 +417,48 @@ INSERT INTO `user_role` (`id`, `role_id`, `user_id`) VALUES
 --
 -- Chỉ mục cho các bảng đã đổ
 --
+CREATE TABLE `contact` (
+  `id` int(11) NOT NULL,
+  `name` varchar(225) NOT NULL,
+  `phone` int(11) NOT NULL,
+  `email` varchar(225) NOT NULL,
+  `feedback` text NOT NULL,
+  `updated_at` date NOT NULL,
+  `created_at` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `contact`
+--
+
+INSERT INTO `contact` (`id`, `name`, `phone`, `email`, `feedback`, `updated_at`, `created_at`) VALUES
+(2, 'Vi Minh Tuấn', 968899681, 'tuanngo@gmail.com', 'xếp lịch không đúng yêu cầu', '0000-00-00', '0000-00-00'),
+(3, 'Vinh', 254897444, 'vinhxxx@gmail.com', 'hí ae', '2020-11-04', '2020-11-04');
+
+--
+-- Chỉ mục cho các bảng đã đổ
+--
+
+--
+-- Chỉ mục cho bảng `contact`
+--
+ALTER TABLE `contact`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT cho các bảng đã đổ
+--
+
+--
+-- AUTO_INCREMENT cho bảng `contact`
+--
+ALTER TABLE `contact`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 --
 -- Chỉ mục cho bảng `appointment`
