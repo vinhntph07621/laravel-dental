@@ -30,7 +30,7 @@ class UserController extends Controller
             'name' => $request->name,
             'phone' => $request->phone,
             'email' => $request->email,
-            'password' => bcrypt($request->password)
+            'password' => md5($request->password)
         ]);
 
         $user_role = UserRole::create([

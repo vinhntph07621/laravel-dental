@@ -20,7 +20,7 @@ Route::get('/price-list', 'PriceListController@index');
 Route::get('/detail-price', 'DetailPriceController@index');
 
 Route::get('/doctors','DoctorController@index'); 
-Route::get('/doctor/{id}','DoctorController@show'); 
+Route::get('/doctors/{id}','DoctorController@show'); 
 
 Route::get('/services', 'ServiceController@index');
 
@@ -33,7 +33,7 @@ Route::middleware('auth:api')->group(function (){
     Route::post('/appointments', 'AppointmentController@store');
     
     Route::post('/doctors','DoctorController@store'); 
-    Route::delete('/doctor/{user}','DoctorController@delete'); 
+    Route::delete('/doctors/{user}','DoctorController@delete'); 
     
     Route::get('/nurses','DoctorController@index'); 
     Route::post('/nurses','NurseController@store');
