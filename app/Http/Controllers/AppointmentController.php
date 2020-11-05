@@ -63,7 +63,7 @@ class AppointmentController extends Controller
         $services = $request->service_id;
         
 
-        for ($i = 0; $i < count($services); $i++){
+        for ($i = 0; $i < count([$services]); $i++){
             $array = array(
                 'appointment_id' => $appointments->id,
                 'service_id' => $services[$i],
@@ -71,6 +71,11 @@ class AppointmentController extends Controller
             $app_has_service = DB::table('appointment_has_service')->insert($array);
         }   
         return response()->json("Complete", 200);
+    }
+
+    public function getDetail($id){
+        $appointments = Appointment::with('detail')->where('id',$id)->get();
+        return response()->json($appointments, 200);
     }
 
     public function update(Request $request, Appointment $appointment){

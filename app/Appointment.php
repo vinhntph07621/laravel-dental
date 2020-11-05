@@ -19,5 +19,14 @@ class Appointment extends Model
     {
         return $this->hasMany(AppointmentHasService::class);
     }
+    public function detail()
+    {
+        return $this->hasMany(AppointmentHasService::class);
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
     
 }
