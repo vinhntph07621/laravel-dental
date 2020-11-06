@@ -12,4 +12,6 @@ class AppointmentHasService extends Model
     protected $fillable = [
         'appointment_id','service_id'
     ];
+    
+    
 }

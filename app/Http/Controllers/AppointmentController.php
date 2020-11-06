@@ -63,7 +63,7 @@ class AppointmentController extends Controller
         $services = $request->service_id;
         
 
-        for ($i = 0; $i < count([$services]); $i++){
+        for ($i = 0; $i < count($services); $i++){
             $array = array(
                 'appointment_id' => $appointments->id,
                 'service_id' => $services[$i],
@@ -74,7 +74,11 @@ class AppointmentController extends Controller
     }
 
     public function getDetail($id){
-        $appointments = Appointment::with('detail')->where('id',$id)->get();
+        DB::enableQueryLog();
+        $appointments = Appointment::with('detail')
+        ->join('doctors','doctors.id','=','appointment.doctor_id')
+        ->where('appointment.id',$id)->get();
+        dd(DB::getQueryLog());
         return response()->json($appointments, 200);
     }
 
