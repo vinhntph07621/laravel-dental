@@ -20,7 +20,7 @@ Route::get('/price-list', 'PriceListController@index');
 Route::get('/detail-price', 'DetailPriceController@index');
 
 Route::get('/doctors','DoctorController@index'); 
-Route::get('/doctors/{id}','DoctorController@show'); 
+Route::get('/doctors/{id}','DoctorController@show');
 
 Route::get('/services', 'ServiceController@index');
 

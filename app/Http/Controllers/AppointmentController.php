@@ -77,7 +77,6 @@ class AppointmentController extends Controller
     public function getDetail($id){
         DB::enableQueryLog();
         $appointments = Appointment::with('detail')
-        ->join('doctors','doctors.id','=','appointment.doctor_id')
         ->where('appointment.id',$id)->get();
         // dd(DB::getQueryLog());
         return response()->json($appointments, 200);
