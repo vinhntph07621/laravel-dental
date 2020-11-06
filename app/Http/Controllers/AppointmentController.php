@@ -32,6 +32,7 @@ class AppointmentController extends Controller
         $appointments = DB::table('appointment')
         ->join('doctors','doctors.id','=','appointment.doctor_id')
         ->select('appointment.id','doctors.first_name as doctor_first_name','doctors.last_name as doctor_last_name','appointment.status','appointment.has_people','appointment.date_time','appointment.patient_name')
+        ->orderBy('appointment.id', 'DESC')
         ->get();
         
         return response()->json($appointments);
