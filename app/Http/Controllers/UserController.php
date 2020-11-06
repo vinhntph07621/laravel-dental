@@ -21,10 +21,6 @@ class UserController extends Controller
     }   
 
     public function signup(Request $request){
-        $hashed = Hash::make('password', [
-            'rounds' => 10,
-        ]);
-
         $request->validate([
             'name' => 'required|string',
             'email' => 'required|string|unique:users',
@@ -34,7 +30,7 @@ class UserController extends Controller
             'name' => $request->name,
             'phone' => $request->phone,
             'email' => $request->email,
-            'password' => $hashed
+            'password' => bcrypt($request->password)
         ]);
 
         $user_role = UserRole::create([
