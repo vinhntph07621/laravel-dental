@@ -13,5 +13,8 @@ class AppointmentHasService extends Model
         'appointment_id','service_id'
     ];
     
-    
+    public function hasService()
+    {
+    return $this->belongsTo(Service::class);
+    }
 }
