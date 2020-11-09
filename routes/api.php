@@ -27,8 +27,6 @@ Route::get('/services', 'ServiceController@index');
 Route::get('/contacts','ContactController@index');
 Route::post('/contacts','ContactController@store');
 
-
-
 Route::middleware('auth:api')->group(function (){
     Route::get('/auth', 'AuthController@user');
     Route::get('/user-show', 'AuthController@show');
