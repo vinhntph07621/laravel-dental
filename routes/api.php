@@ -24,10 +24,8 @@ Route::get('/doctors/{id}','DoctorController@show');
 
 Route::get('/services', 'ServiceController@index');
 
-Route::get('/contacts','ContactController@index');
 Route::post('/contacts','ContactController@store');
-Route::put('/contacts/{contact}','ContactController@update');
-Route::delete('/contacts/{contact}','ContactController@destroy');
+
 
 
 Route::middleware('auth:api')->group(function (){
@@ -73,5 +71,9 @@ Route::middleware('auth:api')->group(function (){
     Route::post('/permissions', 'PermissionController@store');
     Route::put('/permissions/{per}', 'PermissionController@update');
     Route::delete('/permissions/{per}', 'PermissionController@destroy');
+
+    Route::get('/contacts','ContactController@index');
+    Route::put('/contacts/{contact}','ContactController@update');
+    Route::delete('/contacts/{contact}','ContactController@destroy');
     
 });
