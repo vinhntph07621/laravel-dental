@@ -422,8 +422,7 @@ CREATE TABLE `contact` (
   `name` varchar(225) NOT NULL,
   `phone` int(11) NOT NULL,
   `email` varchar(225) NOT NULL,
-  `message` text NOT NULL,
-  `status` int(10) NOT NULL,
+  `feedback` text NOT NULL,
   `updated_at` date NOT NULL,
   `created_at` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -432,9 +431,9 @@ CREATE TABLE `contact` (
 -- Đang đổ dữ liệu cho bảng `contact`
 --
 
-INSERT INTO `contact` (`id`, `name`, `phone`, `email`, `message`, `status`, `updated_at`, `created_at`) VALUES
-(2, 'Vi Minh Tuấn', 968899681, 'tuanngo@gmail.com', 'xếp lịch không đúng yêu cầu', 0, '0000-00-00', '0000-00-00'),
-(3, 'Vinh', 254897444, 'vinhxxx@gmail.com', 'hí ae', 0, '2020-11-04', '2020-11-04');
+INSERT INTO `contact` (`id`, `name`, `phone`, `email`, `feedback`, `updated_at`, `created_at`) VALUES
+(2, 'Vi Minh Tuấn', 968899681, 'tuanngo@gmail.com', 'xếp lịch không đúng yêu cầu', '0000-00-00', '0000-00-00'),
+(3, 'Vinh', 254897444, 'vinhxxx@gmail.com', 'hí ae', '2020-11-04', '2020-11-04');
 
 --
 -- Chỉ mục cho các bảng đã đổ
