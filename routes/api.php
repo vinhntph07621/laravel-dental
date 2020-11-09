@@ -27,7 +27,7 @@ Route::get('/services', 'ServiceController@index');
 Route::get('/contacts','ContactController@index');
 Route::post('/contacts','ContactController@store');
 Route::put('/contacts/{contact}','ContactController@update');
-Route::put('/contacts/{contact}','ContactController@destroy');
+Route::delete('/contacts/{contact}','ContactController@destroy');
 
 
 Route::middleware('auth:api')->group(function (){
