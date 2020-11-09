@@ -14,7 +14,22 @@ class AppointmentController extends Controller
 {
     //
     public function index(){
-        $appointments = Appointment::all(); 
+        $appointments = DB::table('appointment')
+        ->join('appointment_has_service','appointment_has_service.appointment_id','=','appointment.id')
+        ->join('service','service.id','=','appointment_has_service.service_id')
+        ->join('doctors','doctors.id','=','appointment.doctor_id')
+        ->select('appointment.id',
+        'service.name',
+        'doctors.first_name as doctor_first_name',
+        'doctors.last_name as doctor_last_name',
+        'appointment.date_time',
+        'appointment.patient_name',
+        'appointment.has_people',
+        'appointment.email',
+        'appointment.phone_number',
+        )
+        ->where('appointment.id','1')
+        ->get(); 
         return response()->json($appointments, 200);
     }
 
@@ -80,7 +95,7 @@ class AppointmentController extends Controller
         $appointments = Appointment::with('detail')
         ->where('appointment.id',$id)->get();
 
-        dd(DB::getQueryLog());
+        // dd(DB::getQueryLog());
         return response()->json($appointments, 200);
     }
 
