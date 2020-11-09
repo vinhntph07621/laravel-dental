@@ -16,6 +16,14 @@ class DoctorController extends Controller
         return response()->json($doctors, 200);
     }
 
+    public function getSpecial(){
+        $doctors = DB::table('doctors')
+        ->orderBy('id','ASC')
+        ->limit(3)
+        ->get();
+        return response()->json($doctors, 200);
+    }
+
     public function show($id){
         $doctor = Doctor::find($id);
         return response()->json($doctor, 200);

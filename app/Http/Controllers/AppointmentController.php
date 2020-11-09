@@ -79,7 +79,8 @@ class AppointmentController extends Controller
         DB::enableQueryLog();
         $appointments = Appointment::with('detail')
         ->where('appointment.id',$id)->get();
-        // dd(DB::getQueryLog());
+
+        dd(DB::getQueryLog());
         return response()->json($appointments, 200);
     }
 
