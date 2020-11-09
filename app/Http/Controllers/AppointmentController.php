@@ -86,7 +86,7 @@ class AppointmentController extends Controller
         $appointments = Appointment::with('detail')
         ->where('appointment.id',$id)->get();
 
-        dd(DB::getQueryLog());
+        // dd(DB::getQueryLog());
         return response()->json($appointments, 200);
     }
 
