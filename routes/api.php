@@ -25,6 +25,7 @@ Route::get('/doctors/{id}','DoctorController@show');
 Route::get('/services', 'ServiceController@index');
 
 Route::get('/contacts','ContactController@index');
+Route::post('/contacts','ContactController@store');
 
 
 
