@@ -52,4 +52,11 @@ class UserController extends Controller
         return response()->json($user, 200);
     }
 
+    public function updatePassword(Request $request, User $user){
+        $user->update([
+            'password' => bcrypt($request->password)
+        ]);
+        return response()->json($user, 200);
+    }
+
 }

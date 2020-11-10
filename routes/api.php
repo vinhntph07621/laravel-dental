@@ -32,7 +32,6 @@ Route::post('/contacts','ContactController@store');
 
 Route::middleware('auth:api')->group(function (){
     Route::get('/auth', 'AuthController@user');
-    Route::get('/user-show', 'AuthController@show');
     
     Route::get('/appointments', 'AppointmentController@index');
     Route::put('/appointments/{appointment}', 'AppointmentController@update');

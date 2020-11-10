@@ -17,11 +17,11 @@ class AppointmentHasService extends Model
     
     public function service()
     {
-    return $this->hasMany(Service::class,'id');
+    return $this->belongsTo(Service::class);
     }
 
     public function appointment()
     {
-    return $this->hasMany(Appointment::class);
+    return $this->belongsTo(Appointment::class);
     }
 }

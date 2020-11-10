@@ -15,7 +15,7 @@ class Appointment extends Model
         'user_id','doctor_id','patient_name', 'has_people','service_id','date_time','phone_number','email','address','message','status'
     ];
     
-    public function detail()
+    public function service()
     {
         return $this->hasMany(AppointmentHasService::class);
     }

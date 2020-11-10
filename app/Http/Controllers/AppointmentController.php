@@ -83,7 +83,7 @@ class AppointmentController extends Controller
 
     public function getDetail($id){
         DB::enableQueryLog();
-        $appointments = Appointment::with('detail')
+        $appointments = Appointment::with('service')
         ->where('appointment.id',$id)->get();
 
         // dd(DB::getQueryLog());
