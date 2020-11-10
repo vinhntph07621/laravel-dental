@@ -83,9 +83,7 @@ class AppointmentController extends Controller
 
     public function getDetail($id){
         DB::enableQueryLog();
-        $appointments = DB::table('appointment_has_service')
-        ->join('appointment','appointment_has_service.appointment_id','=','appointment.id')
-        ->join('service','appointment_has_service.service_id','=','service.id')
+        $appointments = Appointment::with('service')
         ->where('appointment.id',$id)->get();
 
         // dd(DB::getQueryLog());
