@@ -67,7 +67,7 @@ Route::middleware('auth:api')->group(function (){
     Route::get('/users', 'UserController@index');
     Route::get('/user', 'AuthController@user');
     Route::put('/users/{user}', 'UserController@update');
-    Route::put('/users/password/{user}', 'UserController@updatePassword');
+    Route::put('/users/password/a', 'UserController@updatePassword');
 
     Route::get('/permissions', 'PermissionController@index');
     Route::post('/permissions', 'PermissionController@store');

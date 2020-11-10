@@ -6,6 +6,8 @@ use App\Permission;
 use App\Role;
 use App\UserRole;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -45,6 +47,10 @@ class UserController extends Controller
     }
 
     public function update(Request $request, User $user){
+        $request->validate([
+            'name' => 'required',
+            'phone' => 'required'
+        ]);
         $user->update([
             'name' => $request->name,
             'phone' => $request->phone,
@@ -52,10 +58,24 @@ class UserController extends Controller
         return response()->json($user, 200);
     }
 
-    public function updatePassword(Request $request, User $user){
-        $user->update([
-            'password' => bcrypt($request->password)
-        ]);
+    public function updatePassword(Request $request){
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required'
+            ]);
+
+        $user = User::find(auth()->user()->id);
+        
+        if(!Hash::check($request->old_password, $user->password)){
+            return response()->json([
+                'message' => 'Mật khẩu cũ không chính xác'
+            ], 200);
+        }else{
+            $user->update([
+                'password' => bcrypt($request->new_password)
+            ]);
+         }
+         
         return response()->json($user, 200);
     }
 
