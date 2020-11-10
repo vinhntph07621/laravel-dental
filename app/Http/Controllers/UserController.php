@@ -69,14 +69,14 @@ class UserController extends Controller
         if(!Hash::check($request->old_password, $user->password)){
             return response()->json([
                 'message' => 'Mật khẩu cũ không chính xác'
-            ], 200);
+            ], 400);
         }else{
             $user->update([
                 'password' => bcrypt($request->new_password)
             ]);
+        return response()->json($user, 200);
          }
          
-        return response()->json($user, 200);
     }
 
 }
