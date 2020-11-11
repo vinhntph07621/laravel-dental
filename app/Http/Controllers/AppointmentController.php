@@ -88,7 +88,7 @@ class AppointmentController extends Controller
         ->select('doctors.first_name','doctors.last_name','appointment.patient_name','appointment.has_people','appointment.email','appointment.phone_number', 'appointment.date_time','appointment.message','appointment.status')
         ->where('appointment.id',$id)->get();
 
-        dd(DB::getQueryLog());
+        // dd(DB::getQueryLog());
         return response()->json($appointments, 200);
     }
 
