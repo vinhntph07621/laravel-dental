@@ -88,7 +88,7 @@ class AppointmentController extends Controller
         ->select('doctors.first_name','doctors.last_name','appointment.patient_name','appointment.has_people','appointment.email','appointment.phone_number', 'appointment.date_time','appointment.message','appointment.status')
         ->where('appointment.id',$id)->get();
 
-        // dd(DB::getQueryLog());
+        dd(DB::getQueryLog());
         return response()->json($appointments, 200);
     }
 
@@ -98,4 +98,33 @@ class AppointmentController extends Controller
         ]);
         return response()->json($appointment, 200);
     }
+
+    public function edit(Request $request, Appointment $appointment){
+        DB::enableQueryLog();
+        $appointment->update([
+            'patient_name' => $request->patient_name,
+            'doctor_id' => $request->doctor_id,
+            'date_time' => $request->date_time,
+            'has_people' => $request->has_people,
+            'phone_number' => $request->phone_number,
+            'email' => $request->email,
+            'address' => $request->address,
+            'message' => $request->message,
+        ]);
+
+        [$services] = $request->service_id;
+        $integerIDs = array_map('intval', explode(',', $services));
+        for ($i = 0; $i < count($integerIDs); $i++){
+            $array = array(
+                'appointment_id' => $appointment->id,
+                'service_id' => $integerIDs[$i],
+            );
+        
+        $app_has_service = AppointmentHasService::updateOrCreate($array);
+        // dd($app_has_service);
+    }
+        return response()->json($appointment, 200);
+    }
+
+
 }

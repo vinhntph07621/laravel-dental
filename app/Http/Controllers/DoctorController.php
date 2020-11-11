@@ -74,7 +74,18 @@ class DoctorController extends Controller
     }
 
     public function update(Request $request, Doctor $doctor){
-        $doctor->update($request->all());
+        $doctor->update([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'birthday' => $request->birthday,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'email' => $request->email,
+            'avatar' => $request->avatar,
+            'gender' => $request->gender,
+            'short_bio' => $request->short_bio,
+            'status' => $request->status
+        ]);
         return response()->json($doctor, 200);
     }
 
@@ -84,6 +95,4 @@ class DoctorController extends Controller
         DB::table("users")->where("id", $user_id)->delete();
         return response()->json(null, 204);
     }
-
-    
 }
