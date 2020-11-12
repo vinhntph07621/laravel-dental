@@ -31,7 +31,6 @@ class AppointmentController extends Controller
     public function show(){
         $users = Auth::user();
         $user_id = $users->id;
-
         $hasService = DB::table('appointment_has_service')
         ->get();
         
