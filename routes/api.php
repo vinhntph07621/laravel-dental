@@ -23,7 +23,6 @@ Route::get('/doctors','DoctorController@index');
 Route::get('/doctors/{id}','DoctorController@show');
 Route::get('/doctor/special','DoctorController@getSpecial');
 
-
 Route::get('/services', 'ServiceController@index');
 
 Route::post('/contacts','ContactController@store');

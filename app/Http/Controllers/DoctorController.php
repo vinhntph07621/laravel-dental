@@ -13,11 +13,8 @@ class DoctorController extends Controller
 {
     //
     public function index(){
+        
         $doctors = Doctor::all();
-        $googleDriveStorage = Storage::disk('google_drive');
-        $googleDriveStorage->put('test.txt', 'Hello world');
-
-        return 'File was saved to Google Drive';
         return response()->json($doctors, 200);
     }
 
@@ -37,16 +34,17 @@ class DoctorController extends Controller
     public function store(Request $request){
         $avatars = $request->avatar;
        
-        // if($request->hasFile('avatar')){
-        //     $file = $request->file('avatar');
-        //     $destinationPath = 'uploads/';
-        //     $file->move($destinationPath,$file->getClientOriginalName());
-        //     $link_img = 'http://dental-project.herokuapp.com/uploads/'.$file->getClientOriginalName();
-        //     $avatars = $link_img;
-        // }
-        // else{
-        //     $avatars ='';
-        // }
+        $file = $request->file('avatar');
+        if($request->hasFile('avatar')){
+            $file = $request->file('avatar');
+            $destinationPath = 'uploads/';
+            $file->move($destinationPath,$file->getClientOriginalName());
+            $link_img = 'http://dental-project.herokuapp.com/uploads/'.$file->getClientOriginalName();
+            $avatars = $link_img;
+        }
+        else{
+            $avatars ='';
+        }
 
         $users = User::create([
             'name' => $request->first_name." ".$request->last_name,
