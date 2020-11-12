@@ -84,7 +84,7 @@ class AppointmentController extends Controller
         DB::enableQueryLog();
         $appointments = DB::table('appointment')
         ->join('doctors','doctors.id','=','appointment.doctor_id')
-        ->select('doctors.first_name','doctors.last_name','appointment.patient_name','appointment.has_people','appointment.email','appointment.phone_number', 'appointment.date_time','appointment.message','appointment.status','appointment.doctor_id')
+        ->select('doctors.first_name','doctors.last_name','appointment.patient_name','appointment.has_people','appointment.email','appointment.phone_number', 'appointment.date_time','appointment.message','appointment.status','doctors.id')
         ->where('appointment.id',$id)->get();
 
         // dd(DB::getQueryLog());
