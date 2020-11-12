@@ -32,7 +32,6 @@ class DoctorController extends Controller
     }
 
     public function store(Request $request){
-        $avatars = $request->avatar;
        
         if($request->hasFile('avatar')){
             $file = $request->file('avatar');
