@@ -137,6 +137,8 @@ class AppointmentController extends Controller
         ->where('appointment_id', $appointment->id)
         ->delete();
 
+        $services = $request->service_id;
+
         for ($i = 0; $i < count($services); $i++){
             $array = array(
                 'appointment_id' => $appointment->id,
