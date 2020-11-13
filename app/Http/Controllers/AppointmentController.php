@@ -145,7 +145,6 @@ class AppointmentController extends Controller
                 'appointment_id' => $appointment->id,
                 'service_id' => $integerIDs[$i],
             );
-        return $integerIDs;
         $app_has_service = DB::table('appointment_has_service')->insert($array);
         // dd($app_has_service);
     }
