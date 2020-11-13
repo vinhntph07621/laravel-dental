@@ -91,10 +91,32 @@ class AppointmentController extends Controller
         return response()->json($appointments, 200);
     }
 
-    public function update(Request $request, Appointment $appointment){
+    public function updateByUser(Request $request, Appointment $appointment){
         $appointment->update([
-            'status' => $request->status
+            'patient_name' => $request->patient_name,
+            'doctor_id' => $request->doctor_id,
+            'date_time' => $request->date_time,
+            'has_people' => $request->has_people,
+            'phone_number' => $request->phone_number,
+            'email' => $request->email,
+            'address' => $request->address,
+            'message' => $request->message
         ]);
+
+        $removeUpdate = DB::table('appointment_has_service')
+        ->where('appointment_id', $appointment->id)
+        ->delete();
+
+        [$services] = $request->service_id;
+        $integerIDs = array_map('intval', explode(',', $services));
+        for ($i = 0; $i < count($integerIDs); $i++){
+            $array = array(
+                'appointment_id' => $appointment->id,
+                'service_id' => $integerIDs[$i],
+            );
+        
+        $app_has_service = AppointmentHasService::create($array);
+        }
         return response()->json($appointment, 200);
     }
 
@@ -109,7 +131,12 @@ class AppointmentController extends Controller
             'email' => $request->email,
             'address' => $request->address,
             'message' => $request->message,
+            'status' => $request->status
         ]);
+
+        $removeUpdate = DB::table('appointment_has_service')
+        ->where('appointment_id', $appointment->id)
+        ->delete();
 
         [$services] = $request->service_id;
         $integerIDs = array_map('intval', explode(',', $services));
@@ -119,7 +146,7 @@ class AppointmentController extends Controller
                 'service_id' => $integerIDs[$i],
             );
         
-        $app_has_service = AppointmentHasService::updateOrCreate($array);
+        $app_has_service = AppointmentHasService::create($array);
         // dd($app_has_service);
     }
         return response()->json($appointment, 200);

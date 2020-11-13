@@ -37,6 +37,7 @@ Route::middleware('auth:api')->group(function (){
     Route::get('/appointments/detail/{id}', 'AppointmentController@getDetail');
     Route::get('/appointments/service/{appointmentId}', 'AppointmentController@getDetailService');
     Route::get('/appointment', 'AppointmentController@show');
+    Route::put('/appointments/update/{appointment}', 'AppointmentController@updateByUser');
     Route::post('/appointments', 'AppointmentController@store');
     Route::put('/appointments/edit/{appointment}', 'AppointmentController@edit');
     
