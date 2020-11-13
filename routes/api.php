@@ -45,7 +45,7 @@ Route::middleware('auth:api')->group(function (){
     Route::put('/doctors/{doctor}','DoctorController@update'); 
     Route::delete('/doctors/{user}','DoctorController@delete');
     
-    Route::get('/nurses','DoctorController@index'); 
+    Route::get('/nurses','NurseController@index'); 
     Route::post('/nurses','NurseController@store');
     
     Route::post('/services', 'ServiceController@store');
