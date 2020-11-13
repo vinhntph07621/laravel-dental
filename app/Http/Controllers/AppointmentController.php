@@ -115,7 +115,7 @@ class AppointmentController extends Controller
                 'service_id' => $integerIDs[$i],
             );
         
-        $app_has_service = AppointmentHasService::create($array);
+        $app_has_service = DB::table('appointment_has_service')->insert($array);
         }
         return response()->json('Update complete', 200);
     }
