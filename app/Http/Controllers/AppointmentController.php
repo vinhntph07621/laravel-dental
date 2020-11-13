@@ -137,14 +137,15 @@ class AppointmentController extends Controller
         ->where('appointment_id', $appointment->id)
         ->delete();
 
-        $services = $request->service_id;
+        [$services] = $request->service_id;
+        $integerIDs = array_map('intval', explode(',', $services));
 
-        for ($i = 0; $i < count($services); $i++){
+        for ($i = 0; $i < count($integerIDs); $i++){
             $array = array(
                 'appointment_id' => $appointment->id,
-                'service_id' => $services[$i],
+                'service_id' => $integerIDs[$i],
             );
-        
+        return $integerIDs;
         $app_has_service = DB::table('appointment_has_service')->insert($array);
         // dd($app_has_service);
     }
