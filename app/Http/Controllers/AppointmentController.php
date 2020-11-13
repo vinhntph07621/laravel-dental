@@ -117,7 +117,7 @@ class AppointmentController extends Controller
         
         $app_has_service = AppointmentHasService::create($array);
         }
-        return response()->json($appointment, 200);
+        return response()->json('Update complete', 200);
     }
 
     public function edit(Request $request, Appointment $appointment){
