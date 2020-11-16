@@ -147,9 +147,10 @@ class AppointmentController extends Controller
             );
         
         $app_has_service = DB::table('appointment_has_service')->insert($array);
+        $display = Appointment::with('service')->where('id',$appointment->id)->get();
         // dd($app_has_service);
     }
-        return response()->json($appointment, 200);
+        return response()->json($display, 200);
     }
 
 
