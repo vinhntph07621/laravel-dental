@@ -150,5 +150,12 @@ class AppointmentController extends Controller
         return response()->json($display, 200);
     }
 
+    public function update(Request $request, Appointment $appointment){
+        $appointment->update([
+            'status' => $request->status
+        ]);
+        return response()->json($appointment, 200);
+    }
+
 
 }
