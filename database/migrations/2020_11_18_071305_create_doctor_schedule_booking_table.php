@@ -17,6 +17,8 @@ class CreateDoctorScheduleBookingTable extends Migration
             $table->increments('id');
             $table->integer('appointment_id');
             $table->integer('status');
+            $table->dateTime('start_time',0);
+            $table->dateTime('end_time',0);
             $table->foreign('appointment_id')->references('id')->on('appointment');
             $table->timestamps();
         });

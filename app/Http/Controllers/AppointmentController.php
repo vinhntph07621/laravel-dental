@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Appointment;
 use App\Doctor;
 use App\Service;
+use App\DoctorScheduleBooking;
 use App\AppointmentHasService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -55,30 +56,39 @@ class AppointmentController extends Controller
         // $services = Service::all();
 
         // $array = array('appointment_id' => 1, 'service_id' => $request->service_id);
-
-        $appointments = Appointment::create([
-            'patient_name' => $request->patient_name,
-            'doctor_id' => $request->doctor_id,
-            'date_time' => $request->date_time,
-            'has_people' => $request->has_people,
-            'phone_number' => $request->phone_number,
-            'email' => $request->email,
-            'address' => $request->address,
-            'message' => $request->message,
-            'user_id' => $user_id,
-        ]);
+        DB::enableQueryLog();
+        $end_date = Carbon::createFromFormat('Y-m-d H:i:s', $request->date_time)->addHours(2);
+        $date_exist = DB::table('doctor_schedule_booking')
+        ->where('start_time','>=',$request->date_time)
+        ->get();
+        if($date_exist->count()){
+            return "exist";
+        }else{
+            $appointments = Appointment::create([
+                'patient_name' => $request->patient_name,
+                'doctor_id' => $request->doctor_id,
+                'date_time' => $request->date_time,
+                'has_people' => $request->has_people,
+                'phone_number' => $request->phone_number,
+                'email' => $request->email,
+                'address' => $request->address,
+                'message' => $request->message,
+                'user_id' => $user_id,
+            ]);
+            
+            $services = $request->service_id;
+            
+    
+            for ($i = 0; $i < count($services); $i++){
+                $array = array(
+                    'appointment_id' => $appointments->id,
+                    'service_id' => $services[$i],
+                );
+                $app_has_service = DB::table('appointment_has_service')->insert($array);
+            }   
+            return response()->json("Complete", 200);
+        }
         
-        $services = $request->service_id;
-        
-
-        for ($i = 0; $i < count($services); $i++){
-            $array = array(
-                'appointment_id' => $appointments->id,
-                'service_id' => $services[$i],
-            );
-            $app_has_service = DB::table('appointment_has_service')->insert($array);
-        }   
-        return response()->json("Complete", 200);
     }
 
     public function getDetail($id){
@@ -133,6 +143,16 @@ class AppointmentController extends Controller
             'message' => $request->message,
             'status' => $request->status
         ]);
+
+        if($request->status == 2){
+            $date = Carbon::createFromFormat('Y-m-d H:i:s', $appointment->date_time)->addHours(2);
+            $schedule = DoctorScheduleBooking::create([
+                'status' => 1,
+                'start_time' => $appointment->date_time,
+                'end_time' => $date,
+                'appointment_id' => $appointment->id
+            ]);
+        }
 
         $removeUpdate = DB::table('appointment_has_service')
         ->where('appointment_id', $appointment->id)
