@@ -59,7 +59,7 @@ class AppointmentController extends Controller
         DB::enableQueryLog();
         $end_date = Carbon::createFromFormat('Y-m-d H:i:s', $request->date_time)->addHours(2);
         $date_exist = DB::table('doctor_schedule_booking')
-        ->where('start_time','>=',$request->date_time)
+        ->where('start_time','=',$request->date_time)
         ->get();
         if($date_exist->count()){
             return "exist";
