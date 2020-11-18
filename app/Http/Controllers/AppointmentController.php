@@ -39,6 +39,7 @@ class AppointmentController extends Controller
         ->select('appointment.id','doctors.first_name as doctor_first_name','doctors.last_name as doctor_last_name','appointment.status','appointment.has_people','appointment.date_time','appointment.patient_name')
         ->orderBy('appointment.id', 'DESC')
         ->where('appointment.user_id',$user_id)
+        ->where('appointment.status','!=','3')
         ->get();
         
         return response()->json($appointments);
