@@ -146,7 +146,7 @@ class AppointmentController extends Controller
         ]);
 
         if($request->status == 2){
-            $date = Carbon::createFromFormat('Y-m-d H:i:s', $appointment->date_time)->addHours(2);
+            $date = Carbon::createFromFormat('Y-m-d H:i', $appointment->date_time)->addHours(2);
             $schedule = DoctorScheduleBooking::create([
                 'status' => 1,
                 'start_time' => $appointment->date_time,
