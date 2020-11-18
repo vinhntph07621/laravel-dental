@@ -61,6 +61,8 @@ class AppointmentController extends Controller
         $date_exist = DB::table('doctor_schedule_booking')
         ->where('start_time','=',$request->date_time)
         ->get();
+
+        return response()->json($date_exist);
         if($date_exist->count()){
             return "exist";
         }else{
