@@ -65,7 +65,7 @@ class AppointmentController extends Controller
         ->where('doctor_id',$request->doctor_id)
         ->get();
 
-        if([$date_exist]->count()){
+        if(count($date_exist) > 1){
             return response()->json(["message" => "Exist"]);
         }else{
             $appointments = Appointment::create([
