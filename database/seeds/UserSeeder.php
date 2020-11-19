@@ -14,12 +14,27 @@ class UserSeeder extends Seeder
     public function run()
     {
         //
-        DB::table('users')->insert([
-            'name' => 'Vinh Nguyen',
-            'phone' => '0397361642',
-            'email' => 'vinhxx7@gmail.com',
-            'avatar' => 'none.jpg',
-            'password' => Hash::make('123456'),
-        ]);
+        $users = [
+            [
+                'id' => 1,
+                'name' => 'Vinh Nguyen',
+                'phone' => '0397361642',
+                'email' => 'vinhxx7@gmail.com',
+                'avatar' => 'none.jpg',
+                'status' => 1,
+                'password' => Hash::make('123456'),
+            ],
+
+            [
+                'id' => 2,
+                'name' => 'Vinh Dep Trai',
+                'phone' => '0397361642',
+                'email' => 'vinhxx8@gmail.com',
+                'avatar' => 'none.jpg',
+                'status' => 1,
+                'password' => Hash::make('123456'),
+            ],
+        ];
+        DB::table('users')->insert($users);
     }
 }
