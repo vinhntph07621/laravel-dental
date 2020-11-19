@@ -15,7 +15,7 @@ class CreateDoctorScheduleBookingTable extends Migration
     {
         Schema::create('doctor_schedule_booking', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('appointment_id');
+            $table->integer('appointment_id')->unsigned();
             $table->integer('status');
             $table->dateTime('start_time',0);
             $table->dateTime('end_time',0);
