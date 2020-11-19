@@ -23,7 +23,7 @@ class CreateAppointmentTable extends Migration
             $table->string('phone_number');
             $table->string('email',255);
             $table->string('address',500);
-            $table->string('message',500);
+            $table->string('message',500)->nullable();
             $table->integer('status')->nullable()->default('1');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
