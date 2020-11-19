@@ -20,7 +20,7 @@ class CreateAppointmentTable extends Migration
             $table->string('patient_name',255);
             $table->integer('has_people');
             $table->dateTime('date_time',0);
-            $table->integer('phone_number');
+            $table->string('phone_number');
             $table->string('email',255);
             $table->string('address',500);
             $table->string('message',500);

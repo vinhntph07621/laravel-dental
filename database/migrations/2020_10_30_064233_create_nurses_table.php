@@ -18,7 +18,7 @@ class CreateNursesTable extends Migration
             $table->string('first_name',255);
             $table->string('last_name',255);
             $table->date('birthday');
-            $table->integer('phone');
+            $table->string('phone');
             $table->string('address',500);
             $table->string('email',255);
             $table->string('avatar',255);
