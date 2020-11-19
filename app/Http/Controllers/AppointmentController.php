@@ -59,6 +59,8 @@ class AppointmentController extends Controller
         DB::enableQueryLog();
         $end_date = Carbon::createFromFormat('Y-m-d H:i', $request->date_time)->addHours(2);
         $date_exist = DB::table('doctor_schedule_booking')
+        ->join('appointment','appointment.id','=','doctor_schedule_booking.appointment_id')
+        ->select('appointment.doctor_id','doctor_schedule_booking.*')
         ->where('start_time','=',$request->date_time)
         ->where('doctor_id',$request->doctor_id)
         ->get();
@@ -90,7 +92,6 @@ class AppointmentController extends Controller
             }   
             return response()->json("Complete", 200);
         }
-        
     }
 
     public function getDetail($id){
