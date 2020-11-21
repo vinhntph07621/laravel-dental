@@ -13,8 +13,7 @@ class DoctorController extends Controller
 {
     //
     public function index(){
-        
-        $doctors = Doctor::all();
+        $doctors = Doctor::where('status',1)->get();
         return response()->json($doctors, 200);
     }
 
