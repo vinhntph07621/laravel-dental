@@ -98,4 +98,18 @@ class DoctorController extends Controller
         DB::table("users")->where("id", $user_id)->delete();
         return response()->json(null, 204);
     }
+
+    public function blockDoctor(Request $request, Doctor $doctor){
+        $doctor->update([
+            'status' => $request->status,
+        ]);
+        
+        if($request->status == 2){
+            $users = User::where('id',$doctor->user_id)->update(['status' => 2]);
+        }else{
+            $users = User::where('id',$doctor->user_id)->update(['status' => 1]);
+        }
+
+        return response()->json($doctor, 200);
+    }
 }
