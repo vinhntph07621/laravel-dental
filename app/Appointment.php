@@ -4,6 +4,7 @@ namespace App;
 
 use App\Doctor;
 use App\AppointmentHasService;
+use App\ReExamination;
 use Illuminate\Database\Eloquent\Model;
 
 class Appointment extends Model
@@ -23,6 +24,11 @@ class Appointment extends Model
     public function getId()
     {
         return $this->id;
+    }
+
+    public function re_examination()
+    {
+        return $this->hasMany(ReExamination::class);
     }
     
 }

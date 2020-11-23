@@ -40,6 +40,8 @@ Route::middleware('auth:api')->group(function (){
     Route::put('/appointments/update/{appointment}', 'AppointmentController@updateByUser');
     Route::post('/appointments', 'AppointmentController@store');
     Route::put('/appointments/edit/{appointment}', 'AppointmentController@edit');
+
+    Route::post('/re-examinations','ReExaminationController@store');
     
     Route::post('/doctors','DoctorController@store'); 
     Route::put('/doctors/{doctor}','DoctorController@update'); 
