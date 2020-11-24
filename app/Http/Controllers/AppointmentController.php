@@ -149,11 +149,16 @@ class AppointmentController extends Controller
             'status' => $request->status
         ]);
 
+        $checkStatus = NumberBooking::where('appointment_id',$appointment->id)->get();
+
         if($request->status == 2){
-            $numBookings = NumberBooking::create([
-                'appointment_id' => $appointment->id,
-                'status' => 1
-            ]);
+            if(count($checkStatus) > 0){
+            }else{
+                $numBookings = NumberBooking::create([
+                    'appointment_id' => $appointment->id,
+                    'status' => 1
+                ]);
+            }
         }
 
         $removeUpdate = DB::table('appointment_has_service')
