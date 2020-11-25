@@ -153,6 +153,7 @@ class AppointmentController extends Controller
 
         if($request->status == 2){
             if(count($checkStatus) > 0){
+
             }else{
                 $numBookings = NumberBooking::create([
                     'appointment_id' => $appointment->id,

@@ -15,8 +15,9 @@ class CreateMedicalRecordTable extends Migration
     {
         Schema::create('medical_record', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('appointment_id')->unsigned();
-            $table->foreign('appointment_id')->references('id')->on('appointment');
+            $table->integer('number_booking_id')->unsigned();
+            $table->foreign('number_booking_id')->references('id')->on('number_booking');
+            $table->dateTime('end_time',0);
             $table->string('advice',500);
             $table->integer('status');
             $table->timestamps();

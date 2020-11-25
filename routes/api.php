@@ -44,6 +44,7 @@ Route::middleware('auth:api')->group(function (){
     Route::post('/re-examinations','ReExaminationController@store');
 
     Route::get('/number-bookings','NumberBookingController@index');
+    Route::put('/number-bookings/{numberBooking}','NumberBookingController@confirm');
     
     Route::post('/doctors','DoctorController@store'); 
     Route::put('/doctors/{doctor}','DoctorController@update'); 

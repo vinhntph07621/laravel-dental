@@ -10,7 +10,7 @@ class MedicalRecord extends Model
     //
     protected $table = 'medical_record';
     protected $fillable = [
-        'appointment_id', 'advice', 'status'
+        'number_booking_id', 'advice', 'status'
     ];
 
     
