@@ -17,7 +17,6 @@ class NumberBookingController extends Controller
         ->join('doctors','doctors.id','=','appointment.doctor_id')
         ->select('number_booking.*','appointment.patient_name','appointment.phone_number','appointment.date_time', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
         ->get();
-        return Carbon::now()->toDateString();
         return response()->json($numberBookings, 200);
     }
     
