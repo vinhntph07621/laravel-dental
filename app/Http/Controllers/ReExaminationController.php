@@ -21,8 +21,12 @@ class ReExaminationController extends Controller
         return response()->json($reExamination, 200);
     }
 
+    public function show($reExaminationId){
+        $reExamination = ReExamination::where('id',$reExaminationId)->get();
+        return response()->json($reExamination, 200);
+    }
+
     public function store(Request $request){
-        
         $checkStatus = DB::table('re_examination')
         ->where('number_booking_id', '=', $request->number_booking_id)
         ->where('status','=', 1)

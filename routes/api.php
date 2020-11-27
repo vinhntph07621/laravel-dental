@@ -45,6 +45,7 @@ Route::middleware('auth:api')->group(function (){
 
     Route::get('/re-examinations','ReExaminationController@index');
     Route::post('/re-examinations','ReExaminationController@store');
+    Route::get('/re-examinations/{reExaminationId}','ReExaminationController@show');
     Route::put('/re-examinations/{reExamination}','ReExaminationController@update');
     Route::delete('/re-examinations/{reExamination}','ReExaminationController@destroy');
 
