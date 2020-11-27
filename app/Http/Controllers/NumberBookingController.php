@@ -21,6 +21,7 @@ class NumberBookingController extends Controller
     }
     
     public function confirm(Request $request, NumberBooking $numberBooking){
+
         $medicalRecords = MedicalRecord::where('number_booking_id',$numberBooking)->get();
 
         if(count($medicalRecords) > 0){
@@ -35,8 +36,8 @@ class NumberBookingController extends Controller
             $numberBooking->update([
                 'status' => 2
             ]);
+            
         }
-        
     }
     
 
