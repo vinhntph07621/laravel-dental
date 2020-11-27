@@ -31,7 +31,7 @@ class ReExaminationController extends Controller
             $reExamination = ReExamination::create($request->all());
             return response()->json($reExamination, 201);
         }else{
-            return response()->json(["message" => "Vui lòng hoàn thành lịch tái khám trước"], 204);
+            return response()->json(["message" => "Vui lòng hoàn thành lịch tái khám trước"], 400);
         }
     }
 
