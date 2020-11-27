@@ -161,9 +161,7 @@ class AppointmentController extends Controller
                 ]);
             }
         }else if($request->status == 3){
-                $numBookings = NumberBooking::where('appointment_id',$appointment->id)->update([
-                    'status' => 3
-                ]);
+                $numBookings =  NumberBooking::where('appointment_id',$appointment->id);
         }
 
         $removeUpdate = DB::table('appointment_has_service')
