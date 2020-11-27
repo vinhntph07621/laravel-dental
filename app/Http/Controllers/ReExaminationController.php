@@ -22,16 +22,19 @@ class ReExaminationController extends Controller
     }
 
     public function store(Request $request){
+        
         $checkStatus = DB::table('re_examination')
         ->where('number_booking_id', '=', $request->number_booking_id)
-        ->where('status','=', 2)
+        ->where('status','=', 1)
+        ->orderBy('id', 'ASC')
+        ->limit(1)
         ->get(); 
 
         if(count($checkStatus) > 0){
+            return response()->json(["message" => "Vui lòng hoàn thành lịch tái khám trước"], 400);
+        }else{
             $reExamination = ReExamination::create($request->all());
             return response()->json($reExamination, 201);
-        }else{
-            return response()->json(["message" => "Vui lòng hoàn thành lịch tái khám trước"], 400);
         }
     }
 
