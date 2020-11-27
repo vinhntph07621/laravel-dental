@@ -12,7 +12,12 @@ class ReExaminationController extends Controller
 {
     //
     public function index(){
-        $reExamination = ReExamination::all();
+        $reExamination = DB::table('re_examination')
+        ->join('number_booking','number_booking.id','=','re_examination.number_booking_id')
+        ->join('appointment','appointment.id','=','number_booking.appointment_id')
+        ->join('doctors','doctors.id','=','appointment.doctor_id')
+        ->select('re_examination.*','appointment.patient_name', 'appointment.phone_number', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
+        ->get();
         return response()->json($reExamination, 200);
     }
 
