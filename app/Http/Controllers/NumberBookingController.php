@@ -22,10 +22,16 @@ class NumberBookingController extends Controller
     
     public function confirm(Request $request, NumberBooking $numberBooking){
 
-        $medicalRecords = MedicalRecord::where('number_booking_id',$numberBooking)->get();
+        $numberBooking->update([
+            'status' => 2
+        ]);
+
+        $medicalRecords = DB::table('medical_record')
+        ->where('number_booking_id','=', $numberBooking->id)
+        ->get();
 
         if(count($medicalRecords) > 0){
-           
+            
         }else{
             $medicalRecord = MedicalRecord::create([
                 'number_booking_id' => $numberBooking->id,
@@ -33,12 +39,10 @@ class NumberBookingController extends Controller
                 'end_time' => Carbon::now()->toDateString(),
                 'status' => 1
             ]);
-            $numberBooking->update([
-                'status' => 2
-            ]);
-            
+            return response()->json($medicalRecord, 200);
         }
     }
     
+
 
 }

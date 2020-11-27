@@ -11,4 +11,9 @@ class NumberBooking extends Model
     protected $fillable = [
         'appointment_id','status'
     ];
+
+    public function re_examination()
+    {
+        return $this->hasMany(ReExamination::class,'number_booking_id');
+    }
 }

@@ -13,5 +13,4 @@ class MedicalRecord extends Model
         'number_booking_id','end_time', 'advice', 'status'
     ];
 
-    
 }
