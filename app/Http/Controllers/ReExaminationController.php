@@ -7,6 +7,7 @@ use App\ReExamination;
 use Illuminate\Support\Facades\DB;
 use App\Appointment;
 use App\NumberBooking;
+use Illuminate\Support\Facades\Auth;
 
 class ReExaminationController extends Controller
 {
@@ -24,6 +25,20 @@ class ReExaminationController extends Controller
     public function show($reExaminationId){
         $reExamination = ReExamination::where('id',$reExaminationId)->get();
         return response()->json($reExamination, 200);
+    }
+
+    public function getByUser(){
+        $users = Auth::user();
+        $user_id = $users->id;
+
+        $reExaminationByUser = DB::table('re_examination')
+        ->join('number_booking','number_booking.id','re_examination.number_booking_id')
+        ->join('appointment','appointment.id','=','number_booking.appointment_id')
+        ->select('re_examination.*')
+        ->where('appointment.user_id','=',$user_id)
+        ->get();
+        
+        return response()->json($reExaminationByUser, 200);
     }
 
     public function store(Request $request){
