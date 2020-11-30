@@ -57,7 +57,12 @@ class AppointmentController extends Controller
         
         $users = Auth::user();
         $user_id = $users->id;
-        
+
+        $checkRole = DB::table('users')
+        ->join('user_role','user_role.user_id','=','users.id')
+        ->where('users.id','=',$user_id)
+        ->get();
+
         // $services = Service::all();
 
         // $array = array('appointment_id' => 1, 'service_id' => $request->service_id);
@@ -70,7 +75,18 @@ class AppointmentController extends Controller
         // ->where('doctor_id',$request->doctor_id)
         // ->get();
 
-        
+        if($checkRole->role_id !== 4){
+            $appointments = Appointment::create([
+                'patient_name' => $request->patient_name,
+                'doctor_id' => $request->doctor_id,
+                'date_time' => $request->date_time,
+                'has_people' => $request->has_people,
+                'phone_number' => $request->phone_number,
+                'email' => $request->email,
+                'address' => $request->address,
+                'message' => $request->message
+            ]);
+        }else{
             $appointments = Appointment::create([
                 'patient_name' => $request->patient_name,
                 'doctor_id' => $request->doctor_id,
@@ -82,6 +98,9 @@ class AppointmentController extends Controller
                 'message' => $request->message,
                 'user_id' => $user_id,
             ]);
+        }
+
+           
             
             $services = $request->service_id;
             
