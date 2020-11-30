@@ -77,7 +77,7 @@ class AppointmentController extends Controller
         // ->where('doctor_id',$request->doctor_id)
         // ->get();
 
-        if($checkRole->role_id !== 4){
+        if($checkRole[0]->role_id !== 4){
             $appointments = Appointment::create([
                 'patient_name' => $request->patient_name,
                 'doctor_id' => $request->doctor_id,
