@@ -58,7 +58,7 @@ class NumberBookingController extends Controller
         ->join('appointment','appointment.id','=','number_booking.appointment_id')
         ->join('doctors','doctors.id','=','appointment.doctor_id')
         ->select('number_booking.*','appointment.patient_name','appointment.phone_number','appointment.date_time', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
-        ->where('number_booking.status','=',1)
+        ->where('number_booking.status','!=',3)
         ->where('doctors.id','=',$checkLogin[0]->doctor_id)
         ->orderBy('id','DESC')
         ->get();
