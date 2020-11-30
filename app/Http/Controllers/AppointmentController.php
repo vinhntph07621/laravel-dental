@@ -86,7 +86,8 @@ class AppointmentController extends Controller
                 'phone_number' => $request->phone_number,
                 'email' => $request->email,
                 'address' => $request->address,
-                'message' => $request->message
+                'message' => $request->message,
+                'user_id' => null
             ]);
         }else{
             $appointments = Appointment::create([
