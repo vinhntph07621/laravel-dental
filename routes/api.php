@@ -52,6 +52,7 @@ Route::middleware('auth:api')->group(function (){
     Route::delete('/re-examinations/{reExamination}','ReExaminationController@destroy');
 
     Route::get('/number-bookings','NumberBookingController@index');
+    Route::get('/number-bookings/doctor','NumberBookingController@getListByDoctor');
     Route::put('/number-bookings/{numberBooking}','NumberBookingController@confirm');
     
     Route::post('/doctors','DoctorController@store'); 

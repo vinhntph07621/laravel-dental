@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\NumberBooking;
 use App\MedicalRecord;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class NumberBookingController extends Controller
 {
@@ -43,6 +44,26 @@ class NumberBookingController extends Controller
         }
     }
     
+    public function getListByDoctor(){
+        $users = Auth::user();
+        $user_id = $users->id;
 
+        $checkLogin = DB::table('doctors')
+        ->join('users','users.id','=','doctors.user_id')
+        ->select('doctors.id as doctor_id')
+        ->where('users.id','=',$user_id)
+        ->get();
+
+        $getListByDoctorId = DB::table('number_booking')
+        ->join('appointment','appointment.id','=','number_booking.appointment_id')
+        ->join('doctors','doctors.id','=','appointment.doctor_id')
+        ->select('number_booking.*','appointment.patient_name','appointment.phone_number','appointment.date_time', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
+        ->where('number_booking.status','!=',3)
+        ->where('doctors.id','=',$checkLogin[0]->doctor_id)
+        ->orderBy('id','DESC')
+        ->get();
+
+        return response()->json($getListByDoctorId, 200);
+    }
 
 }
