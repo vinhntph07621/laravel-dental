@@ -54,6 +54,7 @@ Route::middleware('auth:api')->group(function (){
 
     Route::get('/number-bookings','NumberBookingController@index');
     Route::get('/number-bookings/detail/{id}','NumberBookingController@getDetail');
+    Route::get('/number-bookings/complete','NumberBookingController@getListComplete');
     Route::get('/number-bookings/doctor/pending','NumberBookingController@getListPending');
     Route::get('/number-bookings/doctor','NumberBookingController@getListByDoctor');
     Route::put('/number-bookings/{numberBooking}','NumberBookingController@confirm');
