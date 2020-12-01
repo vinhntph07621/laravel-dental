@@ -22,6 +22,16 @@ class NumberBookingController extends Controller
         ->get();
         return response()->json($numberBookings, 200);
     }
+
+    public function getDetail($id){
+        $numberBookings = DB::table('number_booking')
+        ->join('appointment','appointment.id','=','number_booking.appointment_id')
+        ->where('number_booking.id','=',$id)
+        ->select('appointment.patient_name','appointment.phone_number','appointment.date_time')
+        ->get();
+
+        return response()->json($numberBookings, 200);
+    }
     
     public function confirm(Request $request, NumberBooking $numberBooking){
 
@@ -37,7 +47,7 @@ class NumberBookingController extends Controller
             $medicalRecord = MedicalRecord::create([
                 'number_booking_id' => $numberBooking->id,
                 'advice' => $request->advice,
-                'end_time' => Carbon::now()->toDateString(),
+                'end_time' => $request->end_time,
                 'status' => 1
             ]);
             return response()->json($medicalRecord, 200);
