@@ -47,6 +47,7 @@ Route::middleware('auth:api')->group(function (){
 
     Route::get('/re-examinations','ReExaminationController@index');
     Route::post('/re-examinations','ReExaminationController@store');
+    Route::get('/re-examinations/number-bookings/{numberBookingId}','ReExaminationController@getListByNumberBooking');
     Route::get('/re-examinations/detail/{id}','ReExaminationController@getDetail');
     Route::get('/re-examinations/show/user','ReExaminationController@getByUser');
     Route::get('/re-examinations/{reExaminationId}','ReExaminationController@show');

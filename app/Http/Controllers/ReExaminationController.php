@@ -27,6 +27,11 @@ class ReExaminationController extends Controller
         return response()->json($reExamination, 200);
     }
 
+    public function getListByNumberBooking($numberBookingId){
+        $reExamination = ReExamination::where('number_booking_id',$numberBookingId)->where('status',2)->get();
+        return response()->json($reExamination, 200);
+    }
+
     public function getByUser(){
         $users = Auth::user();
         $user_id = $users->id;
@@ -69,10 +74,8 @@ class ReExaminationController extends Controller
             return response()->json(["message" => "Vui lòng hoàn thành lịch tái khám trước"], 400);
         }else{
             $reExamination = ReExamination::create($request->all());
-            
             return response()->json($reExamination, 201);
         }
-
     }
 
     public function update(Request $request, ReExamination $reExamination){
