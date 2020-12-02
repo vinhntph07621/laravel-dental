@@ -68,7 +68,6 @@ Route::middleware('auth:api')->group(function (){
     Route::put('/doctors/block/{doctor}','DoctorController@blockDoctor');
     Route::delete('/doctors/{user}','DoctorController@delete');
 
-    
     Route::get('/nurses','NurseController@index'); 
     Route::post('/nurses','NurseController@store');
     
