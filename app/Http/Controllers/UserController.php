@@ -18,6 +18,17 @@ class UserController extends Controller
        ->join('users','users.id','=','user_role.user_id')
        ->join('role','role.id','=','user_role.role_id')
        ->select('users.*','role.name as role_name')
+       ->where('users.status','=',1)
+       ->get();
+        return response()->json($users);
+    }   
+
+    public function inActive(){
+       $users = DB::table('user_role')
+       ->join('users','users.id','=','user_role.user_id')
+       ->join('role','role.id','=','user_role.role_id')
+       ->select('users.*','role.name as role_name')
+       ->where('users.status','=',2)
        ->get();
         return response()->json($users);
     }   

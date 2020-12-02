@@ -91,6 +91,7 @@ Route::middleware('auth:api')->group(function (){
     Route::delete('/detail-price/{detailPrice}', 'DetailPriceController@delete');
 
     Route::get('/users', 'UserController@index');
+    Route::get('/users/in-active', 'UserController@inActive');
     Route::put('/users/block/{userId}', 'UserController@block');
     Route::get('/user', 'AuthController@user');
     Route::post('/users', 'UserController@store');
