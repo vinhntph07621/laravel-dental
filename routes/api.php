@@ -91,7 +91,7 @@ Route::middleware('auth:api')->group(function (){
 
     Route::get('/users', 'UserController@index');
     Route::get('/user', 'AuthController@user');
-    Route::get('/users', 'UserController@store');
+    Route::post('/users', 'UserController@store');
     Route::put('/users/{user}', 'UserController@update');
     Route::put('/users/password/update', 'UserController@updatePassword');
 
