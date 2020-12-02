@@ -58,7 +58,7 @@ class UserController extends Controller
             'role_id' => $request->role_id,
             'user_id' => $user->id
         ]);
-        
+
         return response()->json([
             'message' => 'Successfully created user!'
         ], 201);
@@ -94,7 +94,13 @@ class UserController extends Controller
             ]);
         return response()->json($user, 200);
          }
-    
+    }
+
+    public function block(Request $request, $userId){
+        $users = User::where('id',$userId)->update([
+            'status' => $request->status
+        ]);
+        return response()->json("Complete", 200);
     }
 
 }

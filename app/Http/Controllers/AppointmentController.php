@@ -97,6 +97,31 @@ class AppointmentController extends Controller
             return response()->json("Complete", 200);
     }
 
+    public function storeNoUser(Request $request){
+        $appointments = Appointment::create([
+            'patient_name' => $request->patient_name,
+            'doctor_id' => $request->doctor_id,
+            'date_time' => $request->date_time,
+            'has_people' => $request->has_people,
+            'phone_number' => $request->phone_number,
+            'email' => $request->email,
+            'address' => $request->address,
+            'message' => $request->message,
+        ]);
+        
+        $services = $request->service_id;
+        
+
+        for ($i = 0; $i < count($services); $i++){
+            $array = array(
+                'appointment_id' => $appointments->id,
+                'service_id' => $services[$i],
+            );
+            $app_has_service = DB::table('appointment_has_service')->insert($array);
+        }   
+        return response()->json("Complete", 200);
+    }
+
     public function getDetail($id){
         DB::enableQueryLog();
         $appointments = DB::table('appointment')

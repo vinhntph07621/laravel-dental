@@ -40,6 +40,7 @@ Route::middleware('auth:api')->group(function (){
     Route::get('/appointment', 'AppointmentController@show');
     Route::put('/appointments/update/{appointment}', 'AppointmentController@updateByUser');
     Route::post('/appointments', 'AppointmentController@store');
+    Route::post('/appointments/no-user', 'AppointmentController@storeNoUser');
     Route::put('/appointments/edit/{appointment}', 'AppointmentController@edit');
 
     Route::get('/medical-records','MedicalRecordController@index');
@@ -90,6 +91,7 @@ Route::middleware('auth:api')->group(function (){
     Route::delete('/detail-price/{detailPrice}', 'DetailPriceController@delete');
 
     Route::get('/users', 'UserController@index');
+    Route::put('/users/block/{user}', 'UserController@block');
     Route::get('/user', 'AuthController@user');
     Route::post('/users', 'UserController@store');
     Route::put('/users/{user}', 'UserController@update');
