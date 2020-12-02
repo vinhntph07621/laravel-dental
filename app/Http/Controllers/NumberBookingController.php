@@ -48,7 +48,7 @@ class NumberBookingController extends Controller
         $numberBookings = DB::table('number_booking')
         ->join('appointment','appointment.id','=','number_booking.appointment_id')
         ->where('number_booking.id','=',$id)
-        ->select('appointment.patient_name','appointment.phone_number','appointment.date_time')
+        ->select('number_booking.appointment_id','appointment.patient_name','appointment.phone_number','appointment.date_time')
         ->get();
 
         return response()->json($numberBookings, 200);
