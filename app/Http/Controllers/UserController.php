@@ -46,6 +46,24 @@ class UserController extends Controller
         ], 201);
     }
 
+    public function store(Request $request){
+        $user = User::create([
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'password' => bcrypt($request->password)
+        ]);
+
+        $user_role = UserRole::create([
+            'role_id' => $request->role_id,
+            'user_id' => $user->id
+        ]);
+        
+        return response()->json([
+            'message' => 'Successfully created user!'
+        ], 201);
+    }
+
     public function update(Request $request, User $user){
         $request->validate([
             'name' => 'required',
