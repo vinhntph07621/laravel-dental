@@ -37,8 +37,48 @@ class AuthController extends Controller
         $email = $request->email;
         $password = $request->password;
 
-        if ( !Auth::attempt(['email' => $email, 'password' => $password, 'status' => 1]))
+
+        if (!Auth::attempt(['email' => $email, 'password' => $password, 'status' => 1]))
         return response()->json(['message' => 'Unauthorized'], 401);
+
+        $user = $request->user();
+        $tokenResult = $user->createToken('Personal Access Token');
+        $token = $tokenResult->token;
+        $user = DB::table('users')
+        ->where('email', '=', $request->email)
+        ->select('users.name','users.email')
+        ->get();
+        
+        if ($request->remember_me)
+        $token->expries_at = Carbon::now()->addWeeks(1);
+        $token->save();
+        return response()->json([
+            'user' => $request->user(),
+            'access_token' => $tokenResult->accessToken,
+            'token_type' => 'Bearer',
+            'expires_at' => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString() 
+        ]);
+    }
+
+    public function loginAdmin(Request $request){
+        $request->validate([
+            'email' => 'required|string',
+            'password' => 'required|string',
+        ]);
+            
+        $email = $request->email;
+        $password = $request->password;
+
+        if ( Auth::attempt(['email' => $email, 'password' => $password, 'status' => 1])){
+            $userId = Auth::User()->id;
+            $role = DB::table('users')
+            ->join('user_role','user_role.user_id','=','users.id')
+            ->where('users.id','=',$userId)
+            ->get();
+            if($role[0]->role_id == 4){
+                return response()->json(['message' => 'Unauthorized'], 401);
+            }
+        }
 
         $user = $request->user();
         $tokenResult = $user->createToken('Personal Access Token');
@@ -65,6 +105,7 @@ class AuthController extends Controller
             'message' => 'Successfully logged out'
         ]);
     }
+    
 
     public function user()
     {

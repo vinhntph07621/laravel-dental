@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/login','AuthController@login');
+Route::post('/login/admin','AuthController@loginAdmin');
 Route::post('/signup','UserController@signup');
 
 Route::get('/price-list', 'PriceListController@index');
