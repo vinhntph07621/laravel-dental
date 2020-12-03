@@ -45,6 +45,7 @@ Route::middleware('auth:api')->group(function (){
     Route::put('/appointments/edit/{appointment}', 'AppointmentController@edit');
 
     Route::get('/medical-records','MedicalRecordController@index');
+    Route::get('/medical-records/doctor','MedicalRecordController@getListByDoctor');
     Route::get('/medical-records/{id}','MedicalRecordController@getDetail');
 
     Route::get('/re-examinations','ReExaminationController@index');
