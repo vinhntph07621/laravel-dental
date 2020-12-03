@@ -81,22 +81,27 @@ class AuthController extends Controller
         }
 
         $user = $request->user();
-        $tokenResult = $user->createToken('Personal Access Token');
-        $token = $tokenResult->token;
-        $user = DB::table('users')
-        ->where('email', '=', $request->email)
-        ->select('users.name','users.email')
-        ->get();
-        
-        if ($request->remember_me)
-        $token->expries_at = Carbon::now()->addWeeks(1);
-        $token->save();
-        return response()->json([
-            'user' => $request->user(),
-            'access_token' => $tokenResult->accessToken,
-            'token_type' => 'Bearer',
-            'expires_at' => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString() 
-        ]);
+        if ($user){
+            $tokenResult = $user->createToken('Personal Access Token');
+            $token = $tokenResult->token;
+            $user = DB::table('users')
+            ->where('email', '=', $request->email)
+            ->select('users.name','users.email')
+            ->get();
+            
+            if ($request->remember_me)
+            $token->expries_at = Carbon::now()->addWeeks(1);
+            $token->save();
+            return response()->json([
+                'user' => $request->user(),
+                'access_token' => $tokenResult->accessToken,
+                'token_type' => 'Bearer',
+                'expires_at' => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString() 
+            ]);
+        }else{
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+       
     }
 
     public function logout(Request $request){
