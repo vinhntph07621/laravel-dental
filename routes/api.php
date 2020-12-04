@@ -72,6 +72,8 @@ Route::middleware('auth:api')->group(function (){
 
     Route::get('/receptionists','ReceptionistController@index'); 
     Route::post('/receptionists','ReceptionistController@store');
+    Route::put('/receptionists/{receptionist}','ReceptionistController@update');
+    Route::get('/receptionists/detail/{id}','ReceptionistController@getDetail');
     
     Route::post('/services', 'ServiceController@store');
     Route::put('/services/{service}', 'ServiceController@update');

@@ -47,7 +47,12 @@ class ReceptionistController extends Controller
 
     public function update(Request $request, Receptionist $receptionist){
         $receptionist->update($request->all());
-        return response()->json($receptionists, 200);
+        return response()->json(['message' => 'complete'], 200);
+    }
+
+    public function getDetail($id){
+        $receptionist = Receptionist::find($id);
+        return response()->json($receptionist, 200);
     }
 
 }
