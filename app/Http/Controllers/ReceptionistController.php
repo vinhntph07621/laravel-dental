@@ -50,6 +50,8 @@ class ReceptionistController extends Controller
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'phone' => $request->phone,
+            'email' => $request->email,
+            'avatar' => $request->avatar,
             'gender' => $request->gender,
             'address' => $request->address,
             'short_bio' => $request->short_bio,
