@@ -83,14 +83,12 @@ class DoctorController extends Controller
         $doctor->update([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
-            'birthday' => $request->birthday,
             'phone' => $request->phone,
             'address' => $request->address,
             'email' => $request->email,
             'avatar' => $request->avatar,
             'gender' => $request->gender,
             'short_bio' => $request->short_bio,
-            'status' => $request->status
         ]);
         return response()->json($doctor, 200);
     }
