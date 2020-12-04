@@ -17,7 +17,7 @@ class ReceptionistController extends Controller
     }
 
     public function store(Request $request){
-        $receptionists = User::create([
+        $users = User::create([
             'name' => $request->first_name." ".$request->last_name,
             'phone' => $request->phone,
             'email' => $request->email,
