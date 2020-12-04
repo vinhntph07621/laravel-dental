@@ -50,7 +50,7 @@ class MedicalRecordController extends Controller
         ->join('number_booking','number_booking.id','=','medical_record.number_booking_id')
         ->join('appointment','appointment.id','=','number_booking.appointment_id')
         ->join('doctors','doctors.id','=','appointment.doctor_id')
-        ->select('medical_record.*','appointment.patient_name', 'appointment.phone_number', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"), 'appointment.date_time')
+        ->select('medical_record.*','appointment.patient_name', 'number_booking.appointment_id', 'appointment.phone_number', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"), 'appointment.date_time')
         ->where('doctors.id','=',$checkLogin[0]->doctor_id)
         ->orderBy('id','DESC')
         ->get();
