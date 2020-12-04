@@ -46,7 +46,15 @@ class ReceptionistController extends Controller
     }
 
     public function update(Request $request, Receptionist $receptionist){
-        $receptionist->update($request->all());
+        $receptionist->update([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'phone' => $users->phone,
+            'gender' => $request->gender,
+            'address' => $request->address,
+            'short_bio' => $request->short_bio,
+            'status' => $request->status,
+        ]);
         return response()->json(['message' => 'complete'], 200);
     }
 
