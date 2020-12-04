@@ -45,19 +45,11 @@ class NumberBookingController extends Controller
     }
 
     public function getDetail($id){
-        $users = Auth::user();
-        $user_id = $users->id;
-
-        $checkLogin = DB::table('doctors')
-        ->join('users','users.id','=','doctors.user_id')
-        ->select('doctors.id as doctor_id')
-        ->where('users.id','=',$user_id)
-        ->get();
+       
         
         $numberBookings = DB::table('number_booking')
         ->join('appointment','appointment.id','=','number_booking.appointment_id')
         ->join('doctors','doctors.id','=','appointment.doctor_id')
-        ->where('doctors.id','=',$checkLogin[0]->doctor_id)
         ->where('number_booking.id','=',$id)
         ->select('number_booking.appointment_id','appointment.patient_name','appointment.phone_number','appointment.date_time')
         ->get();
