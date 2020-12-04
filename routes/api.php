@@ -70,8 +70,8 @@ Route::middleware('auth:api')->group(function (){
     Route::put('/doctors/block/{doctor}','DoctorController@blockDoctor');
     Route::delete('/doctors/{user}','DoctorController@delete');
 
-    Route::get('/nurses','NurseController@index'); 
-    Route::post('/nurses','NurseController@store');
+    Route::get('/receptionists','ReceptionistController@index'); 
+    Route::post('/receptionists','ReceptionistController@store');
     
     Route::post('/services', 'ServiceController@store');
     Route::put('/services/{service}', 'ServiceController@update');

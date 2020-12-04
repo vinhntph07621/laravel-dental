@@ -4,27 +4,27 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\User;
-use App\Nurse;
+use App\Receptionist;
 use App\UserRole;
 use Illuminate\Support\Facades\Auth;
 
-class NurseController extends Controller
+class ReceptionistController extends Controller
 {
     //
     public function index(){
-        $nurses = Nurse::all();
+        $nurses = Receptionist::all();
         return response()->json($nurses, 200);
     }
 
     public function store(Request $request){
-        $users = User::create([
+        $receptionists = User::create([
             'name' => $request->first_name." ".$request->last_name,
             'phone' => $request->phone,
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
 
-        $nurses = Nurse::create([
+        $receptionists = Receptionist::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'birthday' => $request->birthday,
@@ -45,9 +45,9 @@ class NurseController extends Controller
         return response()->json('Success');
     }
 
-    public function update(Request $request, Nurse $nurse){
-        $nurse->update($request->all());
-        return response()->json($nurse, 200);
+    public function update(Request $request, Receptionist $receptionist){
+        $receptionist->update($request->all());
+        return response()->json($receptionists, 200);
     }
 
 }

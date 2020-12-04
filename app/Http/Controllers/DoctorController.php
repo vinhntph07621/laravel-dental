@@ -15,6 +15,7 @@ class DoctorController extends Controller
     public function index(){
         $doctors = DB::table('doctors')
         ->join('users','users.id','=','doctors.user_id')
+        ->select('doctors.*','users.name','users.password','users.email','users.phone','users.avatar')
         ->where('users.status','=',1)
         ->get();
         return response()->json($doctors, 200);
