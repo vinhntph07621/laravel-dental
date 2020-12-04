@@ -49,7 +49,7 @@ class ReceptionistController extends Controller
         $receptionist->update([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
-            'phone' => $users->phone,
+            'phone' => $request->phone,
             'gender' => $request->gender,
             'address' => $request->address,
             'short_bio' => $request->short_bio,
