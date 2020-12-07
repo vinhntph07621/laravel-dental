@@ -18,6 +18,7 @@ class ReExaminationController extends Controller
         ->join('appointments','appointments.id','=','number_bookings.appointment_id')
         ->join('doctors','doctors.id','=','appointments.doctor_id')
         ->select('re_examination.*','appointments.patient_name', 'appointments.phone_number', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
+        ->where('re_examination.status','=',1)
         ->get();
         return response()->json($reExamination, 200);
     }
