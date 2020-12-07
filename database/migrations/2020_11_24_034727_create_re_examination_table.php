@@ -17,7 +17,7 @@ class CreateReExaminationTable extends Migration
             $table->increments('id');
             $table->integer('number_booking_id')->unsigned();
             $table->dateTime('date_of_examination');
-            $table->foreign('number_booking_id')->references('id')->on('number_booking');
+            $table->foreign('number_booking_id')->references('id')->on('number_bookings');
             $table->string('recommend',500);
             $table->integer('status')->nullable()->default(1);
             $table->timestamps();

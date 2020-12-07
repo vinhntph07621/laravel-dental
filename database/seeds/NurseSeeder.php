@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class ReceptionistSeeder extends Seeder
+class NurseSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,14 +11,13 @@ class ReceptionistSeeder extends Seeder
      */
     public function run()
     {
-        //
-        DB::table('receptionists')->insert([
+        DB::table('nurses')->insert([
             'first_name' => 'Taylor',
             'last_name' => 'Swift',
             'birthday' => '2000-06-17',
             'phone' => '0397361642',
             'address' => 'Hoai Duc - Ha Noi',
-            'email' => 'letan1@gmail.com',
+            'email' => 'yta1@gmail.com',
             'gender' => 0,
             'short_bio' => 'hello',
             'status' => 1,

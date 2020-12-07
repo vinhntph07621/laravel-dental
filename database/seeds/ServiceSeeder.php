@@ -20,6 +20,6 @@ class ServiceSeeder extends Seeder
             ['id' => 5, 'name' => 'Điều trị tủy', 'status' => 1],
             ['id' => 6, 'name' => 'Nhổ răng khôn', 'status' => 1],
         ];
-        DB::table('service')->insert($service);
+        DB::table('services')->insert($service);
     }
 }

@@ -12,11 +12,11 @@ class MedicalRecordController extends Controller
 {
     //
     public function index(){
-        $medicalRecords = DB::table('medical_record')
-        ->join('number_booking','number_booking.id','=','medical_record.number_booking_id')
-        ->join('appointment','appointment.id','=','number_booking.appointment_id')
-        ->join('doctors','doctors.id','=','appointment.doctor_id')
-        ->select('medical_record.*','appointment.patient_name', 'appointment.phone_number', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"), 'appointment.date_time')
+        $medicalRecords = DB::table('medical_records')
+        ->join('number_bookings','number_bookings.id','=','medical_records.number_booking_id')
+        ->join('appointments','appointments.id','=','number_bookings.appointment_id')
+        ->join('doctors','doctors.id','=','appointments.doctor_id')
+        ->select('medical_records.*','appointments.patient_name', 'appointments.phone_number', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"), 'appointments.date_time')
         ->get();
         return response()->json($medicalRecords, 200);
     }
@@ -25,12 +25,12 @@ class MedicalRecordController extends Controller
         $users = Auth::user();
         $user_id = $users->id;
 
-        $medicalRecords = DB::table('medical_record')
-        ->join('number_booking','number_booking.id','=','medical_record.number_booking_id')
-        ->join('appointment','appointment.id','=','number_booking.appointment_id')
-        ->join('doctors','doctors.id','=','appointment.doctor_id')
-        ->select('medical_record.*','appointment.patient_name', 'appointment.phone_number', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"), 'appointment.date_time')
-        ->where('appointment.user_id','=',$user_id)
+        $medicalRecords = DB::table('medical_records')
+        ->join('number_bookings','number_booking.id','=','medical_records.number_booking_id')
+        ->join('appointments','appointments.id','=','number_bookings.appointment_id')
+        ->join('doctors','doctors.id','=','appointments.doctor_id')
+        ->select('medical_records.*','appointments.patient_name', 'appointments.phone_number', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"), 'appointments.date_time')
+        ->where('appointments.user_id','=',$user_id)
         ->get();
 
         return response()->json($medicalRecords, 200);
@@ -46,11 +46,11 @@ class MedicalRecordController extends Controller
         ->where('users.id','=',$user_id)
         ->get();
 
-        $medicalRecords = DB::table('medical_record')
-        ->join('number_booking','number_booking.id','=','medical_record.number_booking_id')
-        ->join('appointment','appointment.id','=','number_booking.appointment_id')
-        ->join('doctors','doctors.id','=','appointment.doctor_id')
-        ->select('medical_record.*','appointment.patient_name', 'number_booking.appointment_id', 'appointment.phone_number', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"), 'appointment.date_time')
+        $medicalRecords = DB::table('medical_records')
+        ->join('number_bookings','number_bookings.id','=','medical_records.number_booking_id')
+        ->join('appointments','appointments.id','=','number_bookings.appointment_id')
+        ->join('doctors','doctors.id','=','appointments.doctor_id')
+        ->select('medical_records.*','appointments.patient_name', 'number_bookings.appointment_id', 'appointments.phone_number', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"), 'appointments.date_time')
         ->where('doctors.id','=',$checkLogin[0]->doctor_id)
         ->orderBy('id','DESC')
         ->get();
@@ -58,12 +58,12 @@ class MedicalRecordController extends Controller
     }
 
     public function getDetail($id){
-        $medicalRecords = DB::table('medical_record')
-        ->join('number_booking','number_booking.id','=','medical_record.number_booking_id')
-        ->join('appointment','appointment.id','=','number_booking.appointment_id')
-        ->join('doctors','doctors.id','=','appointment.doctor_id')
-        ->where('medical_record.id','=',$id)
-        ->select('medical_record.*','appointment.patient_name', 'appointment.phone_number', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"), 'appointment.date_time','number_booking.appointment_id')
+        $medicalRecords = DB::table('medical_records')
+        ->join('number_bookings','number_bookings.id','=','medical_records.number_booking_id')
+        ->join('appointments','appointments.id','=','number_bookings.appointment_id')
+        ->join('doctors','doctors.id','=','appointments.doctor_id')
+        ->where('medical_records.id','=',$id)
+        ->select('medical_records.*','appointments.patient_name', 'appointments.phone_number', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"), 'appointments.date_time','number_bookings.appointment_id')
         ->get();
         return response()->json($medicalRecords, 200);
     }

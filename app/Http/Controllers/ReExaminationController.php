@@ -14,10 +14,10 @@ class ReExaminationController extends Controller
     //
     public function index(){
         $reExamination = DB::table('re_examination')
-        ->join('number_booking','number_booking.id','=','re_examination.number_booking_id')
-        ->join('appointment','appointment.id','=','number_booking.appointment_id')
-        ->join('doctors','doctors.id','=','appointment.doctor_id')
-        ->select('re_examination.*','appointment.patient_name', 'appointment.phone_number', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
+        ->join('number_bookings','number_bookings.id','=','re_examination.number_booking_id')
+        ->join('appointments','appointments.id','=','number_bookings.appointment_id')
+        ->join('doctors','doctors.id','=','appointments.doctor_id')
+        ->select('re_examination.*','appointments.patient_name', 'appointments.phone_number', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
         ->get();
         return response()->json($reExamination, 200);
     }
@@ -37,10 +37,10 @@ class ReExaminationController extends Controller
         $user_id = $users->id;
 
         $reExaminationByUser = DB::table('re_examination')
-        ->join('number_booking','number_booking.id','re_examination.number_booking_id')
-        ->join('appointment','appointment.id','=','number_booking.appointment_id')
+        ->join('number_bookings','number_bookings.id','re_examination.number_booking_id')
+        ->join('appointments','appointments.id','=','number_bookings.appointment_id')
         ->select('re_examination.*')
-        ->where('appointment.user_id','=',$user_id)
+        ->where('appointments.user_id','=',$user_id)
         ->get();
         
         return response()->json($reExaminationByUser, 200);
@@ -52,12 +52,12 @@ class ReExaminationController extends Controller
         DB::enableQueryLog();
 
         $reExaminationByUser = DB::table('re_examination')
-        ->join('number_booking','number_booking.id','=','re_examination.number_booking_id')
-        ->join('appointment','appointment.id','=','number_booking.appointment_id')
-        ->join('doctors','doctors.id','=','appointment.doctor_id')
-        ->select('re_examination.*','appointment.patient_name', 'appointment.phone_number', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
+        ->join('number_bookings','number_bookings.id','=','re_examination.number_booking_id')
+        ->join('appointments','appointments.id','=','number_bookings.appointment_id')
+        ->join('doctors','doctors.id','=','appointments.doctor_id')
+        ->select('re_examination.*','appointments.patient_name', 'appointments.phone_number', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
         ->where('re_examination.id','=',$id)
-        ->where('appointment.user_id','=',$user_id)
+        ->where('appointments.user_id','=',$user_id)
         ->get();
         return response()->json($reExaminationByUser, 200);
     }

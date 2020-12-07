@@ -13,11 +13,11 @@ class CreateNumberBookingTable extends Migration
      */
     public function up()
     {
-        Schema::create('number_booking', function (Blueprint $table) {
+        Schema::create('number_bookings', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('appointment_id')->unsigned();
             $table->integer('status');
-            $table->foreign('appointment_id')->references('id')->on('appointment');
+            $table->foreign('appointment_id')->references('id')->on('appointments');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateNumberBookingTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('number_booking');
+        Schema::dropIfExists('number_bookings');
     }
 }

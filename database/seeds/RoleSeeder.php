@@ -15,10 +15,11 @@ class RoleSeeder extends Seeder
         $role = [
             ['id' => 1, 'name' => 'Admin', 'status' => 1],
             ['id' => 2, 'name' => 'Doctor', 'status' => 1],
-            ['id' => 3, 'name' => 'Nurse', 'status' => 1],
+            ['id' => 3, 'name' => 'Receptionist', 'status' => 1],
             ['id' => 4, 'name' => 'Customer', 'status' => 1],
+            ['id' => 5, 'name' => 'Nurse', 'status' => 1],
         ];
 
-        DB::table('role')->insert($role);
+        DB::table('roles')->insert($role);
     }
 }

@@ -44,6 +44,16 @@ class UserSeeder extends Seeder
                 'status' => 1,
                 'password' => Hash::make('123456'),
             ],
+
+            [
+                'id' => 4,
+                'name' => 'Selena Gomez',
+                'phone' => '0397361642',
+                'email' => 'yta1@gmail.com',
+                'avatar' => 'none.jpg',
+                'status' => 1,
+                'password' => Hash::make('123456'),
+            ],
         ];
         DB::table('users')->insert($users);
     }

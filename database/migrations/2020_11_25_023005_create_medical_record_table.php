@@ -13,10 +13,10 @@ class CreateMedicalRecordTable extends Migration
      */
     public function up()
     {
-        Schema::create('medical_record', function (Blueprint $table) {
+        Schema::create('medical_records', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('number_booking_id')->unsigned();
-            $table->foreign('number_booking_id')->references('id')->on('number_booking');
+            $table->foreign('number_booking_id')->references('id')->on('number_bookings');
             $table->dateTime('end_time',0);
             $table->string('advice',500);
             $table->integer('status');
@@ -31,6 +31,6 @@ class CreateMedicalRecordTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('medical_record');
+        Schema::dropIfExists('medical_records');
     }
 }

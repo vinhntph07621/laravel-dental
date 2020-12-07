@@ -16,8 +16,8 @@ class CreateAppointmentHasServiceTable extends Migration
         Schema::create('appointment_has_service', function (Blueprint $table) {
             $table->integer('appointment_id')->unsigned();
             $table->integer('service_id')->unsigned();
-            $table->foreign('appointment_id')->references('id')->on('appointment');
-            $table->foreign('service_id')->references('id')->on('service');
+            $table->foreign('appointment_id')->references('id')->on('appointments');
+            $table->foreign('service_id')->references('id')->on('services');
             $table->timestamps();
         });
     }

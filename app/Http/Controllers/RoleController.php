@@ -10,7 +10,7 @@ class RoleController extends Controller
     //
 
     public function index(){
-        $roles = DB::table('role')->get();
+        $roles = DB::table('roles')->get();
         return response()->json($roles);
     }
 

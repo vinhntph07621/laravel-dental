@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Appointment;
 use App\Doctor;
 use App\Service;
+use App\Notifications\TestNotification;
+use App\User;
 use App\DoctorScheduleBooking;
 use App\AppointmentHasService;
 use App\MedicalRecord;
@@ -18,10 +20,10 @@ class AppointmentController extends Controller
 {
     //
     public function index(){
-        $appointments = DB::table('appointment')
-        ->join('doctors','doctors.id','=','appointment.doctor_id')
-        ->select('appointment.*','doctors.first_name as first_name_doctor','doctors.last_name as last_name_doctor',DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
-        ->where('appointment.status','!=',3)
+        $appointments = DB::table('appointments')
+        ->join('doctors','doctors.id','=','appointments.doctor_id')
+        ->select('appointments.*','doctors.first_name as first_name_doctor','doctors.last_name as last_name_doctor',DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
+        ->where('appointments.status','!=',3)
         ->get(); 
         return response()->json($appointments, 200);
     }
@@ -41,13 +43,13 @@ class AppointmentController extends Controller
         $hasService = DB::table('appointment_has_service')
         ->get();
         
-        $appointments = DB::table('appointment')
-        ->join('doctors','doctors.id','=','appointment.doctor_id')
-        ->leftJoin('number_booking','number_booking.appointment_id','=','appointment.id')
-        ->select('number_booking.id as number_booking_id','appointment.id','doctors.first_name as doctor_first_name','doctors.last_name as doctor_last_name','appointment.status','appointment.has_people','appointment.date_time','appointment.patient_name')
-        ->orderBy('appointment.id', 'DESC')
-        ->where('appointment.user_id',$user_id)
-        ->where('appointment.status','!=','3')
+        $appointments = DB::table('appointments')
+        ->join('doctors','doctors.id','=','appointments.doctor_id')
+        ->leftJoin('number_bookings','number_bookings.appointment_id','=','appointments.id')
+        ->select('number_bookings.id as number_booking_id','appointments.id','doctors.first_name as doctor_first_name','doctors.last_name as doctor_last_name','appointments.status','appointments.has_people','appointments.date_time','appointments.patient_name')
+        ->orderBy('appointments.id', 'DESC')
+        ->where('appointments.user_id',$user_id)
+        ->where('appointments.status','!=','3')
         ->get();
         
         return response()->json($appointments);
@@ -95,6 +97,13 @@ class AppointmentController extends Controller
                 );
                 $app_has_service = DB::table('appointment_has_service')->insert($array);
             }   
+
+            $user = User::find(1); // id của user mình đã đăng kí ở trên, user này sẻ nhận được thông báo
+            $data = [
+            'name' => $appointments->patient_name,
+            'content' => $appointments->user_id." "." vừa đặt lịch",
+            ];
+            $user->notify(new TestNotification($data));
             return response()->json("Complete", 200);
     }
 
@@ -125,10 +134,10 @@ class AppointmentController extends Controller
 
     public function getDetail($id){
         DB::enableQueryLog();
-        $appointments = DB::table('appointment')
-        ->join('doctors','doctors.id','=','appointment.doctor_id')
-        ->select('doctors.first_name','doctors.last_name','appointment.patient_name','appointment.has_people','appointment.email','appointment.phone_number', 'appointment.date_time','appointment.message','appointment.status','appointment.doctor_id','appointment.id')
-        ->where('appointment.id',$id)->get();
+        $appointments = DB::table('appointments')
+        ->join('doctors','doctors.id','=','appointments.doctor_id')
+        ->select('doctors.first_name','doctors.last_name','appointments.patient_name','appointments.has_people','appointments.email','appointments.phone_number', 'appointments.date_time','appointments.message','appointments.status','appointments.doctor_id','appointments.id')
+        ->where('appointments.id',$id)->get();
 
         // dd(DB::getQueryLog());
         return response()->json($appointments, 200);

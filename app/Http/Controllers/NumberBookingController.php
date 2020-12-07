@@ -13,32 +13,32 @@ class NumberBookingController extends Controller
 {
     //
     public function index(){
-        $numberBookings = DB::table('number_booking')
-        ->join('appointment','appointment.id','=','number_booking.appointment_id')
-        ->join('doctors','doctors.id','=','appointment.doctor_id')
-        ->select('number_booking.*','appointment.patient_name','appointment.phone_number','appointment.date_time', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
+        $numberBookings = DB::table('number_bookings')
+        ->join('appointments','appointments.id','=','number_bookings.appointment_id')
+        ->join('doctors','doctors.id','=','appointments.doctor_id')
+        ->select('number_bookings.*','appointments.patient_name','appointments.phone_number','appointments.date_time', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
         ->orderBy('id','DESC')
         ->get();
         return response()->json($numberBookings, 200);
     }
 
     public function getListPendingAdmin(){
-        $numberBookings = DB::table('number_booking')
-        ->join('appointment','appointment.id','=','number_booking.appointment_id')
-        ->join('doctors','doctors.id','=','appointment.doctor_id')
-        ->select('number_booking.*','appointment.patient_name','appointment.phone_number','appointment.date_time', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
-        ->where('number_booking.status','=',1)
+        $numberBookings = DB::table('number_bookings')
+        ->join('appointments','appointments.id','=','number_bookings.appointment_id')
+        ->join('doctors','doctors.id','=','appointments.doctor_id')
+        ->select('number_bookings.*','appointments.patient_name','appointments.phone_number','appointments.date_time', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
+        ->where('number_bookings.status','=',1)
         ->orderBy('id','DESC')
         ->get();
         return response()->json($numberBookings, 200);
     }
 
     public function getListComplete(){
-        $numberBookings = DB::table('number_booking')
-        ->join('appointment','appointment.id','=','number_booking.appointment_id')
-        ->join('doctors','doctors.id','=','appointment.doctor_id')
-        ->select('number_booking.*','appointment.patient_name','appointment.phone_number','appointment.date_time', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
-        ->where('number_booking.status','=',2)
+        $numberBookings = DB::table('number_bookings')
+        ->join('appointments','appointments.id','=','number_bookings.appointment_id')
+        ->join('doctors','doctors.id','=','appointments.doctor_id')
+        ->select('number_bookings.*','appointments.patient_name','appointments.phone_number','appointments.date_time', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
+        ->where('number_bookings.status','=',2)
         ->orderBy('id','DESC')
         ->get();
         return response()->json($numberBookings, 200);
@@ -47,11 +47,11 @@ class NumberBookingController extends Controller
     public function getDetail($id){
        
         
-        $numberBookings = DB::table('number_booking')
-        ->join('appointment','appointment.id','=','number_booking.appointment_id')
-        ->join('doctors','doctors.id','=','appointment.doctor_id')
-        ->where('number_booking.id','=',$id)
-        ->select('number_booking.appointment_id','appointment.patient_name','appointment.phone_number','appointment.date_time')
+        $numberBookings = DB::table('number_bookings')
+        ->join('appointments','appointments.id','=','number_bookings.appointment_id')
+        ->join('doctors','doctors.id','=','appointments.doctor_id')
+        ->where('number_bookings.id','=',$id)
+        ->select('number_bookings.appointmen_id','appointments.patient_name','appointments.phone_number','appointments.date_time')
         ->get();
 
         return response()->json($numberBookings, 200);
@@ -88,11 +88,11 @@ class NumberBookingController extends Controller
         ->where('users.id','=',$user_id)
         ->get();
 
-        $getListByDoctorId = DB::table('number_booking')
-        ->join('appointment','appointment.id','=','number_booking.appointment_id')
-        ->join('doctors','doctors.id','=','appointment.doctor_id')
-        ->select('number_booking.*','appointment.patient_name','appointment.phone_number','appointment.date_time', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
-        ->where('number_booking.status','!=',3)
+        $getListByDoctorId = DB::table('number_bookings')
+        ->join('appointments','appointments.id','=','number_bookings.appointment_id')
+        ->join('doctors','doctors.id','=','appointments.doctor_id')
+        ->select('number_bookings.*','appointments.patient_name','appointments.phone_number','appointments.date_time', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
+        ->where('number_bookings.status','!=',3)
         ->where('doctors.id','=',$checkLogin[0]->doctor_id)
         ->orderBy('id','DESC')
         ->get();
@@ -110,11 +110,11 @@ class NumberBookingController extends Controller
         ->where('users.id','=',$user_id)
         ->get();
 
-        $getListByDoctorId = DB::table('number_booking')
-        ->join('appointment','appointment.id','=','number_booking.appointment_id')
-        ->join('doctors','doctors.id','=','appointment.doctor_id')
-        ->select('number_booking.*','appointment.patient_name','appointment.phone_number','appointment.date_time', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
-        ->where('number_booking.status','=',1)
+        $getListByDoctorId = DB::table('number_bookings')
+        ->join('appointments','appointments.id','=','number_bookings.appointment_id')
+        ->join('doctors','doctors.id','=','appointments.doctor_id')
+        ->select('number_bookings.*','appointments.patient_name','appointments.phone_number','appointments.date_time', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
+        ->where('number_bookings.status','=',1)
         ->where('doctors.id','=',$checkLogin[0]->doctor_id)
         ->orderBy('id','DESC')
         ->get();
