@@ -98,7 +98,7 @@ class AppointmentController extends Controller
                 $app_has_service = DB::table('appointment_has_service')->insert($array);
             }   
 
-            $user = User::find(1); // id của user mình đã đăng kí ở trên, user này sẻ nhận được thông báo
+            $user = User::find(3); // id của user mình đã đăng kí ở trên, user này sẻ nhận được thông báo
             $data = [
             'name' => $appointments->patient_name,
             'content' => $appointments->user_id
