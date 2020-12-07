@@ -101,7 +101,7 @@ class AppointmentController extends Controller
             $user = User::find(1); // id của user mình đã đăng kí ở trên, user này sẻ nhận được thông báo
             $data = [
             'name' => $appointments->patient_name,
-            'content' => $appointments->user_id." "." vừa đặt lịch",
+            'content' => $appointments->user_id
             ];
             $user->notify(new TestNotification($data));
             return response()->json("Complete", 200);
