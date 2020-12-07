@@ -50,7 +50,7 @@ class NumberBookingController extends Controller
         ->join('appointments','appointments.id','=','number_bookings.appointment_id')
         ->join('doctors','doctors.id','=','appointments.doctor_id')
         ->where('number_bookings.id','=',$id)
-        ->select('number_bookings.appointmen_id','appointments.patient_name','appointments.phone_number','appointments.date_time')
+        ->select('number_bookings.appointment_id','appointments.patient_name','appointments.phone_number','appointments.date_time')
         ->get();
 
         return response()->json($numberBookings, 200);
