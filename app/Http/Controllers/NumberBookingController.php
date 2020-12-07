@@ -62,7 +62,7 @@ class NumberBookingController extends Controller
             'status' => $request->status
         ]);
 
-        $medicalRecords = DB::table('medical_record')
+        $medicalRecords = DB::table('medical_records')
         ->where('number_booking_id','=', $numberBooking->id)
         ->get();
 
