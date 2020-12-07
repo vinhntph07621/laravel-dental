@@ -30,8 +30,8 @@ class AppointmentController extends Controller
 
     public function getDetailService($appointmentId){
         $getService = DB::table('appointment_has_service')
-        ->join('service','service.id','=','appointment_has_service.service_id')
-        ->select('service.id','service.name')
+        ->join('services','services.id','=','appointment_has_service.service_id')
+        ->select('services.id','services.name')
         ->where('appointment_has_service.appointment_id',$appointmentId)
         ->get();
         return response()->json($getService, 200);
