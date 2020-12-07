@@ -17,7 +17,7 @@ class NumberBookingController extends Controller
         ->join('appointments','appointments.id','=','number_bookings.appointment_id')
         ->join('doctors','doctors.id','=','appointments.doctor_id')
         ->select('number_bookings.*','appointments.patient_name','appointments.phone_number','appointments.date_time', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
-        ->where('status','=',1)
+        ->where('number_bookings.status','=',1)
         ->orderBy('id','DESC')
         ->get();
         return response()->json($numberBookings, 200);
@@ -46,8 +46,6 @@ class NumberBookingController extends Controller
     }
 
     public function getDetail($id){
-       
-        
         $numberBookings = DB::table('number_bookings')
         ->join('appointments','appointments.id','=','number_bookings.appointment_id')
         ->join('doctors','doctors.id','=','appointments.doctor_id')
