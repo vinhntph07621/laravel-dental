@@ -63,7 +63,6 @@ class AppointmentController extends Controller
         $users = Auth::user();
         $user_id = $users->id;
         
-        return $user;
         // $services = Service::all();
 
         // $array = array('appointment_id' => 1, 'service_id' => $request->service_id);
@@ -106,6 +105,7 @@ class AppointmentController extends Controller
             'name' => $appointments->patient_name,
             'timestamp' => $currentTime
             ];
+
             $user = User::find(1); // id của user mình đã đăng kí ở trên, user này sẻ nhận được thông báo
             $user->notify(new TestNotification($data));
             return response()->json("Complete", 200);
