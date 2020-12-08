@@ -56,12 +56,13 @@ class AppointmentController extends Controller
     }
 
     public function store(Request $request){
-        
         $doctors = Doctor::all();
         
+        $currentTime = Carbon::now('UTC')->addHours(7)->format('Y-m-d H:i:s');
+
         $users = Auth::user();
         $user_id = $users->id;
-        
+
         // $services = Service::all();
 
         // $array = array('appointment_id' => 1, 'service_id' => $request->service_id);
@@ -89,7 +90,8 @@ class AppointmentController extends Controller
             
             $services = $request->service_id;
             
-    
+            
+
             for ($i = 0; $i < count($services); $i++){
                 $array = array(
                     'appointment_id' => $appointments->id,
@@ -101,7 +103,7 @@ class AppointmentController extends Controller
             $user = User::find(3); // id của user mình đã đăng kí ở trên, user này sẻ nhận được thông báo
             $data = [
             'name' => $appointments->patient_name,
-            'content' => $appointments->user_id
+            'timestamp' => $currentTime
             ];
             $user->notify(new TestNotification($data));
             return response()->json("Complete", 200);
