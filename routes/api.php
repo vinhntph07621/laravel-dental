@@ -33,6 +33,8 @@ Route::post('/contacts','ContactController@store');
 Route::middleware('auth:api')->group(function (){
     Route::get('/auth', 'AuthController@user');
     Route::get('/dashboard','DashboardController@index');
+
+    Route::get('/notifications','NotificationController@index');
     
     Route::get('/appointments', 'AppointmentController@index');
     Route::put('/appointments/{appointment}', 'AppointmentController@updateStatus');
@@ -105,11 +107,6 @@ Route::middleware('auth:api')->group(function (){
     Route::post('/users', 'UserController@store');
     Route::put('/users/{user}', 'UserController@update');
     Route::put('/users/password/update', 'UserController@updatePassword');
-
-    Route::get('/permissions', 'PermissionController@index');
-    Route::post('/permissions', 'PermissionController@store');
-    Route::put('/permissions/{per}', 'PermissionController@update');
-    Route::delete('/permissions/{per}', 'PermissionController@destroy');
 
     Route::get('/contacts','ContactController@index');
     Route::put('/contacts/{contact}','ContactController@update');
