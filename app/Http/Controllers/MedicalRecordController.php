@@ -26,7 +26,7 @@ class MedicalRecordController extends Controller
         $user_id = $users->id;
 
         $medicalRecords = DB::table('medical_records')
-        ->join('number_bookings','number_booking.id','=','medical_records.number_booking_id')
+        ->join('number_bookings','number_bookings.id','=','medical_records.number_booking_id')
         ->join('appointments','appointments.id','=','number_bookings.appointment_id')
         ->join('doctors','doctors.id','=','appointments.doctor_id')
         ->select('medical_records.*','appointments.patient_name', 'appointments.phone_number', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"), 'appointments.date_time')
