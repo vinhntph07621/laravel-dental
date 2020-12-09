@@ -197,7 +197,7 @@ class AppointmentController extends Controller
         $checkStatus = NumberBooking::where('appointment_id',$appointment->id)->get();
 
         if($request->status == 2){
-            if(count($checkStatus) == 0){
+            if(count($checkStatus) >= 1){
 
             }else{
                 $numBookings = NumberBooking::create([
