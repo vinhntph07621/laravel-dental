@@ -77,10 +77,11 @@ class AppointmentController extends Controller
         // ->where('doctor_id',$request->doctor_id)
         // ->get();
 
-        
+            $doctorRandom = Doctor::inRandomOrder()->limit(1)->get();
+
             $appointments = Appointment::create([
                 'patient_name' => $request->patient_name,
-                'doctor_id' => $request->doctor_id,
+                'doctor_id' => $doctorRandom[0]->id,
                 'date_time' => $request->date_time,
                 'has_people' => $request->has_people,
                 'phone_number' => $request->phone_number,
