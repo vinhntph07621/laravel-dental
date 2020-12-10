@@ -47,6 +47,28 @@ class ReExaminationController extends Controller
         return response()->json($reExaminationByUser, 200);
     }
 
+    public function getByDoctor(){
+        $users = Auth::user();
+        $user_id = $users->id;
+
+        $checkLogin = DB::table('doctors')
+        ->join('users','users.id','=','doctors.user_id')
+        ->select('doctors.id as doctor_id')
+        ->where('users.id','=',$user_id)
+        ->get();
+
+        $reExaminationByUser = DB::table('re_examination')
+        ->join('number_bookings','number_bookings.id','re_examination.number_booking_id')
+        ->join('appointments','appointments.id','=','number_bookings.appointment_id')
+        ->join('doctors','doctors.id','=','appointments.doctor_id')
+        ->select('re_examination.*')
+        ->where('doctors.id','=',$checkLogin[0]->doctor_id)
+        ->orderBy('id','DESC')
+        ->get();
+        
+        return response()->json($reExaminationByUser, 200);
+    }
+
     public function getDetail($id){
         $users = Auth::user();
         $user_id = $users->id;
@@ -62,6 +84,7 @@ class ReExaminationController extends Controller
         ->get();
         return response()->json($reExaminationByUser, 200);
     }
+    
 
     public function store(Request $request){
         $checkStatus = DB::table('re_examination')
