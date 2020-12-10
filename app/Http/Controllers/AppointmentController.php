@@ -197,27 +197,13 @@ class AppointmentController extends Controller
         $checkStatus = NumberBooking::where('appointment_id',$appointment->id)->get();
 
         if($request->status == 2){
-            if(count($checkStatus) == 0){
-
+            if(count($checkStatus) != 0){
+                return null;
             }else{
                 $numBookings = NumberBooking::create([
                     'appointment_id' => $appointment->id,
                     'status' => 1
                 ]);
-
-                $removeUpdate = DB::table('appointment_has_service')
-                    ->where('appointment_id', $appointment->id)
-                    ->delete();
-
-                    $services = $request->service_id;
-                    for ($i = 0; $i < count($services); $i++){
-                        $array = array(
-                            'appointment_id' => $appointment->id,
-                            'service_id' => $services[$i],
-                        );
-                    $app_has_service = DB::table('appointment_has_service')->insert($array);
-                    $display = Appointment::with('service')->where('id',$appointment->id)->get();
-                }
 
                 $getService = DB::table('appointment_has_service')
                 ->join('services','services.id','=','appointment_has_service.service_id')
@@ -239,11 +225,26 @@ class AppointmentController extends Controller
           
                 Mail::to($email)->send(new EmailDemo($mailData));
 
-            return response()->json($display, 200);
             }
         }else if($request->status == 3){
                 $numBookings =  NumberBooking::where('appointment_id',$appointment->id)->update(['status' => 3]);
         }
+
+        $removeUpdate = DB::table('appointment_has_service')
+        ->where('appointment_id', $appointment->id)
+        ->delete();
+
+        $services = $request->service_id;
+        for ($i = 0; $i < count($services); $i++){
+            $array = array(
+                'appointment_id' => $appointment->id,
+                'service_id' => $services[$i],
+            );
+        $app_has_service = DB::table('appointment_has_service')->insert($array);
+        $display = Appointment::with('service')->where('id',$appointment->id)->get();
+        return response()->json($display, 200);
+
+    }
 
     }
 
