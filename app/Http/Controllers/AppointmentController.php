@@ -79,17 +79,33 @@ class AppointmentController extends Controller
 
             $doctorRandom = Doctor::inRandomOrder()->limit(1)->get();
 
-            $appointments = Appointment::create([
-                'patient_name' => $request->patient_name,
-                'doctor_id' => $doctorRandom[0]->id,
-                'date_time' => $request->date_time,
-                'has_people' => $request->has_people,
-                'phone_number' => $request->phone_number,
-                'email' => $request->email,
-                'address' => $request->address,
-                'message' => $request->message,
-                'user_id' => $user_id,
-            ]);
+            if(!($request->doctor_id)){
+                $appointments = Appointment::create([
+                    'patient_name' => $request->patient_name,
+                    'doctor_id' => $doctorRandom[0]->id,
+                    'date_time' => $request->date_time,
+                    'has_people' => $request->has_people,
+                    'phone_number' => $request->phone_number,
+                    'email' => $request->email,
+                    'address' => $request->address,
+                    'message' => $request->message,
+                    'user_id' => $user_id,
+                ]);
+            }else{
+                $appointments = Appointment::create([
+                    'patient_name' => $request->patient_name,
+                    'doctor_id' => $request->doctor_id,
+                    'date_time' => $request->date_time,
+                    'has_people' => $request->has_people,
+                    'phone_number' => $request->phone_number,
+                    'email' => $request->email,
+                    'address' => $request->address,
+                    'message' => $request->message,
+                    'user_id' => $user_id,
+                ]);
+            }
+
+            
             
             $services = $request->service_id;
             
