@@ -199,6 +199,32 @@ class AppointmentController extends Controller
         if($request->status == 2){
             if(count($checkStatus) != 0){
                 return null;
+            }else{
+                $numBookings = NumberBooking::create([
+                    'appointment_id' => $appointment->id,
+                    'status' => 1
+                ]);
+
+                $getService = DB::table('appointment_has_service')
+                ->join('services','services.id','=','appointment_has_service.service_id')
+                ->select('services.id','services.name')
+                ->where('appointment_has_service.appointment_id',$appointment->id)
+                ->get();
+
+                $email = $appointment->email;
+   
+                $mailData = [
+                    'title' => 'Lịch đặt của bạn đã được xác nhận',
+                    'patient_name' => $appointment->patient_name,
+                    'phone' => $appointment->phone_number,
+                    'date_time' => Carbon::parse($appointment->date_time)->format('d-m-Y H:i'),
+                    'number_booking' => $numBookings->id,
+                    'service' => $getService,
+                    'current_time' => $currentTime
+                ];
+          
+                Mail::to($email)->send(new EmailDemo($mailData));
+
             }
         }else if($request->status == 3){
                 $numBookings =  NumberBooking::where('appointment_id',$appointment->id)->update(['status' => 3]);
@@ -217,6 +243,7 @@ class AppointmentController extends Controller
         $app_has_service = DB::table('appointment_has_service')->insert($array);
         $display = Appointment::with('service')->where('id',$appointment->id)->get();
         return response()->json($display, 200);
+
     }
 
     }
