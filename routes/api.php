@@ -35,7 +35,7 @@ Route::middleware('auth:api')->group(function (){
 
     Route::get('/dashboards/count','DashboardController@index');
     Route::get('/dashboards/booking-current','DashboardController@getBookingCurrentByDoctor');
-    Route::get('/dashboards/booking-current/complete','DashboardController@getBookingCurrentByDoctor');
+    Route::get('/dashboards/booking-current/complete','DashboardController@getBookingCurrentByDoctorComplete');
 
     Route::get('/notifications','NotificationController@index');
     
