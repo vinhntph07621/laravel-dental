@@ -32,7 +32,9 @@ Route::post('/contacts','ContactController@store');
 
 Route::middleware('auth:api')->group(function (){
     Route::get('/auth', 'AuthController@user');
-    Route::get('/dashboard','DashboardController@index');
+
+    Route::get('/dashboards/count','DashboardController@index');
+    Route::get('/dashboards/booking-current','DashboardController@getBookingCurrentByDoctor');
 
     Route::get('/notifications','NotificationController@index');
     
@@ -110,6 +112,7 @@ Route::middleware('auth:api')->group(function (){
     Route::put('/users/password/update', 'UserController@updatePassword');
 
     Route::get('/contacts','ContactController@index');
+    Route::get('/contacts/{id}','ContactController@getDetail');
     Route::put('/contacts/{contact}','ContactController@update');
     Route::delete('/contacts/{contact}','ContactController@destroy');
     
