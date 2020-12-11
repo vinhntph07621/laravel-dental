@@ -51,7 +51,7 @@ class DashboardController extends Controller
         return response()->json($getListBookingToDay, 200);
     }
 
-    public function getBookingCurrentByDoctor(){
+    public function getBookingCurrentByDoctorComplete(){
         $users = Auth::user();
         $user_id = $users->id;
 
