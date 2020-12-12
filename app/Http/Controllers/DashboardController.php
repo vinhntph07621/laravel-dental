@@ -7,6 +7,7 @@ use App\Doctor;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use App\NumberBooking;
+use App\MedicalRecord;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -17,11 +18,13 @@ class DashboardController extends Controller
         $doctors = count(Doctor::all());
         $users = count(User::all());
         $numberBookings = count(NumberBooking::all());
+        $medicalRecords = count(MedicalRecord::all());
 
         return response()->json([
             'countDoctor' => $doctors,
             'countUser' => $users,
             'countNumberBooking' => $numberBookings,
+            'countMedicalRecord' => $MedicalRecords,
         ], 200);
     }
 
