@@ -46,7 +46,8 @@ class DashboardController extends Controller
         $getListReExaminationToDay = DB::table('re_examination')
         ->join('number_bookings','number_bookings.id','=','re_examination.number_booking_id')
         ->join('appointments','appointments.id','=','number_bookings.appointment_id')
-        ->select('re_examination.*')
+        ->join('doctors','doctors.id','=','appointments.doctor_id')
+        ->select('number_bookings.*','appointments.patient_name','appointments.phone_number','appointments.date_time', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
         ->where('appointments.date_time','>=',$startDate)
         ->where('appointments.date_time','<',$endDate)
         ->get();
@@ -64,7 +65,7 @@ class DashboardController extends Controller
         
         return response()->json([
             'bookings' => $getListBookingToDay,
-            're-examinations' => $getListReExaminationToDay
+            're_examinations' => $getListReExaminationToDay
         ], 200);
     }
 
