@@ -19,6 +19,7 @@ class UserController extends Controller
        ->join('roles','roles.id','=','user_role.role_id')
        ->select('users.*','roles.name as role_name')
        ->where('users.status','=',1)
+       ->where('user_role.role_id','!=',1)
        ->get();
         return response()->json($users);
     }   

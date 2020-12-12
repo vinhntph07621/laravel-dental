@@ -43,6 +43,14 @@ class DashboardController extends Controller
         $startDate = CarBon::now()->toDateString();
         $endDate = CarBon::now()->addDay()->toDateString();
 
+        $getListReExaminationToDay = DB::table('re_examination')
+        ->join('number_bookings','number_bookings.id','=','re_examination.number_booking_id')
+        ->join('appointments','appointments.id','=','number_bookings.appointment_id')
+        ->select('re_examination.*')
+        ->where('appointments.date_time','>=',$startDate)
+        ->where('appointments.date_time','<',$endDate)
+        ->get();
+
         $getListBookingToDay = DB::table('number_bookings')
         ->join('appointments','appointments.id','=','number_bookings.appointment_id')
         ->join('doctors','doctors.id','=','appointments.doctor_id')
@@ -53,7 +61,11 @@ class DashboardController extends Controller
         ->where('appointments.date_time','<',$endDate)
         ->orderBy('number_bookings.id','DESC')
         ->get();
-        return response()->json($getListBookingToDay, 200);
+        
+        return response()->json([
+            'bookings' => $getListBookingToDay,
+            're-examinations' => $getListReExaminationToDay
+        ], 200);
     }
 
     public function getBookingCurrentByDoctorComplete(){
