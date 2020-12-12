@@ -51,6 +51,44 @@ class DashboardController extends Controller
         return response()->json($getListBookingToDay, 200);
     }
 
+    public function getBookingCurrentByAdmin(){
+        $users = Auth::user();
+        $user_id = $users->id;
+
+        $startDate = CarBon::now()->toDateString();
+        $endDate = CarBon::now()->addDay()->toDateString();
+
+        $getListBookingToDay = DB::table('number_bookings')
+        ->join('appointments','appointments.id','=','number_bookings.appointment_id')
+        ->join('doctors','doctors.id','=','appointments.doctor_id')
+        ->select('number_bookings.*','appointments.patient_name','appointments.phone_number','appointments.date_time', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
+        ->where('number_bookings.status','=',1)
+        ->where('appointments.date_time','>=',$startDate)
+        ->where('appointments.date_time','<',$endDate)
+        ->orderBy('number_bookings.id','DESC')
+        ->get();
+        return response()->json($getListBookingToDay, 200);
+    }
+
+    public function getBookingCurrentByAdminComplete(){
+        $users = Auth::user();
+        $user_id = $users->id;
+
+        $startDate = CarBon::now()->toDateString();
+        $endDate = CarBon::now()->addDay()->toDateString();
+
+        $getListBookingToDay = DB::table('number_bookings')
+        ->join('appointments','appointments.id','=','number_bookings.appointment_id')
+        ->join('doctors','doctors.id','=','appointments.doctor_id')
+        ->select('number_bookings.*','appointments.patient_name','appointments.phone_number','appointments.date_time', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
+        ->where('number_bookings.status','=',2)
+        ->where('appointments.date_time','>=',$startDate)
+        ->where('appointments.date_time','<',$endDate)
+        ->orderBy('number_bookings.id','DESC')
+        ->get();
+        return response()->json($getListBookingToDay, 200);
+    }
+
     public function getBookingCurrentByDoctorComplete(){
         $users = Auth::user();
         $user_id = $users->id;

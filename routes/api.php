@@ -29,13 +29,14 @@ Route::get('/services', 'ServiceController@index');
 Route::post('/contacts','ContactController@store');
 
 
-
 Route::middleware('auth:api')->group(function (){
     Route::get('/auth', 'AuthController@user');
 
     Route::get('/dashboards/count','DashboardController@index');
-    Route::get('/dashboards/booking-current','DashboardController@getBookingCurrentByDoctor');
-    Route::get('/dashboards/booking-current/complete','DashboardController@getBookingCurrentByDoctorComplete');
+    Route::get('/dashboards/booking-current/doctor','DashboardController@getBookingCurrentByDoctor');
+    Route::get('/dashboards/booking-current/admin','DashboardController@getBookingCurrentByAdmin');
+    Route::get('/dashboards/booking-current/admin/complete','DashboardController@getBookingCurrentByAdminComplete');
+    Route::get('/dashboards/booking-current/doctor/complete','DashboardController@getBookingCurrentByDoctorComplete');
 
     Route::get('/notifications','NotificationController@index');
     

@@ -115,7 +115,6 @@ class AuthController extends Controller
         }else{
             return response()->json(['message' => 'Unauthorized'], 401);
         }
-       
     }
 
     public function logout(Request $request){
