@@ -42,6 +42,12 @@ class AuthController extends Controller
         return response()->json(['message' => 'Unauthorized'], 401);
 
         $user = $request->user();
+
+        $roles = DB::table('users')
+        ->join('user_role','user_role.user_id','=','users.id')
+        ->where('users.id','=',$user->id)
+        ->get();
+
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
         $user = DB::table('users')
@@ -54,6 +60,7 @@ class AuthController extends Controller
         $token->save();
         return response()->json([
             'user' => $request->user(),
+            'role_id' => $roles[0]->role_id,
             'access_token' => $tokenResult->accessToken,
             'token_type' => 'Bearer',
             'expires_at' => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString() 
@@ -81,6 +88,12 @@ class AuthController extends Controller
         }
 
         $user = $request->user();
+        
+        $roles = DB::table('users')
+        ->join('user_role','user_role.user_id','=','users.id')
+        ->where('users.id','=',$user->id)
+        ->get();
+
         if ($user){
             $tokenResult = $user->createToken('Personal Access Token');
             $token = $tokenResult->token;
@@ -94,6 +107,7 @@ class AuthController extends Controller
             $token->save();
             return response()->json([
                 'user' => $request->user(),
+                'role_id' => $roles[0]->role_id,
                 'access_token' => $tokenResult->accessToken,
                 'token_type' => 'Bearer',
                 'expires_at' => Carbon::parse($tokenResult->token->expires_at)->toDateTimeString() 
