@@ -48,8 +48,8 @@ class DashboardController extends Controller
         ->join('appointments','appointments.id','=','number_bookings.appointment_id')
         ->join('doctors','doctors.id','=','appointments.doctor_id')
         ->select('number_bookings.*','appointments.patient_name','appointments.phone_number','appointments.date_time', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
-        ->where('appointments.date_time','>=',$startDate)
-        ->where('appointments.date_time','<',$endDate)
+        ->where('re_examination.date_of_examination','>=',$startDate)
+        ->where('re_examination.date_of_examination','<',$endDate)
         ->get();
 
         $getListBookingToDay = DB::table('number_bookings')
