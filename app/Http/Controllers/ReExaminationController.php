@@ -63,6 +63,7 @@ class ReExaminationController extends Controller
         ->join('doctors','doctors.id','=','appointments.doctor_id')
         ->select('re_examination.*','appointments.patient_name', 'appointments.phone_number', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
         ->where('doctors.id','=',$checkLogin[0]->doctor_id)
+        ->where('re_examination.status','=',1)
         ->orderBy('id','DESC')
         ->get();
         

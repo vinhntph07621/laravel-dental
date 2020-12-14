@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\NumberBooking;
+use App\Appointment;
 use App\MedicalRecord;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -62,6 +63,7 @@ class NumberBookingController extends Controller
             'status' => $request->status
         ]);
 
+
         $medicalRecords = DB::table('medical_records')
         ->where('number_booking_id','=', $numberBooking->id)
         ->get();
@@ -72,6 +74,11 @@ class NumberBookingController extends Controller
                 'advice' => $request->advice,
                 'end_time' => $request->end_time,
                 'status' => 1
+            ]);
+
+            $appointments = Appointment::where('id','=',$numberBooking->appointment_id)
+            ->update([
+            'status' => 4
             ]);
             return response()->json($medicalRecord, 200);
         }
