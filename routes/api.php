@@ -26,6 +26,9 @@ Route::get('/doctor/special','DoctorController@getSpecial');
 
 Route::get('/services', 'ServiceController@index');
 
+Route::post('reset-password', 'ResetPasswordController@sendMail');
+Route::put('reset-password/{token}', 'ResetPasswordController@reset');
+
 Route::post('/contacts','ContactController@store');
 
 
