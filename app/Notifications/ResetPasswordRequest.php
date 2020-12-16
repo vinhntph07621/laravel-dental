@@ -35,7 +35,7 @@ class ResetPasswordRequest extends Notification implements ShouldQueue
      */
      public function toMail($notifiable)
      {
-        $url = 'localhost:3000/reset-password/' . $this->token;
+        $url = 'dental-clinic-fpoly.herokuapp.com/reset-password/' . $this->token;
         
         return (new MailMessage)
             ->line('Bạn nhận được email này vì chúng tôi đã nhận được yêu cầu đặt lại mật khẩu cho tài khoản của bạn.')
