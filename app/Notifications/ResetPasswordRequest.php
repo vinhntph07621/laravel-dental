@@ -35,11 +35,11 @@ class ResetPasswordRequest extends Notification implements ShouldQueue
      */
      public function toMail($notifiable)
      {
-        $url = url('reset-password/?token=' . $this->token);
+        $url = 'localhost:3000/reset-password/' . $this->token;
         
         return (new MailMessage)
             ->line('Bạn nhận được email này vì chúng tôi đã nhận được yêu cầu đặt lại mật khẩu cho tài khoản của bạn.')
-            ->action('Đặt lại mật khẩu', url($url))
+            ->action('Đặt lại mật khẩu', $url)
             ->line('Nếu bạn không yêu cầu đặt lại mật khẩu, bạn không cần thực hiện thêm hành động nào');
     }
 }
