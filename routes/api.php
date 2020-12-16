@@ -25,12 +25,7 @@ Route::get('/doctors/{id}','DoctorController@show');
 Route::get('/doctor/special','DoctorController@getSpecial');
 
 Route::get('/services', 'ServiceController@index');
-
-
-
 Route::post('/contacts','ContactController@store');
-
-Route::post('/forgot_password','ForgotPasswordController@forgot');
 
 Route::middleware('auth:api')->group(function (){
     Route::get('/auth', 'AuthController@user');
