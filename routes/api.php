@@ -25,16 +25,11 @@ Route::get('/doctors/{id}','DoctorController@show');
 Route::get('/doctor/special','DoctorController@getSpecial');
 
 Route::get('/services', 'ServiceController@index');
-
-Route::post('reset-password', 'ResetPasswordController@sendMail');
-Route::put('reset-password/{token}', 'ResetPasswordController@reset');
-
 Route::post('/contacts','ContactController@store');
-
 
 Route::middleware('auth:api')->group(function (){
     Route::get('/auth', 'AuthController@user');
-
+    
     Route::get('/dashboards/count','DashboardController@index');
     Route::get('/dashboards/booking-current/doctor','DashboardController@getBookingCurrentByDoctor');
     Route::get('/dashboards/booking-current/admin','DashboardController@getBookingCurrentByAdmin');
