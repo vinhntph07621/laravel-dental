@@ -20,7 +20,10 @@ Route::post('/signup','UserController@signup');
 Route::get('/price-list', 'PriceListController@index');
 Route::get('/detail-price', 'DetailPriceController@index');
 
-Route::get('/doctors','DoctorController@index'); 
+Route::post('reset-password', 'ResetPasswordController@sendMail');
+Route::put('reset-password/{token}', 'ResetPasswordController@reset');
+
+Route::get('/doctors','DoctorController@index');
 Route::get('/doctors/{id}','DoctorController@show');
 Route::get('/doctor/special','DoctorController@getSpecial');
 
@@ -29,7 +32,7 @@ Route::post('/contacts','ContactController@store');
 
 Route::middleware('auth:api')->group(function (){
     Route::get('/auth', 'AuthController@user');
-    
+
     Route::get('/dashboards/count','DashboardController@index');
     Route::get('/dashboards/booking-current/doctor','DashboardController@getBookingCurrentByDoctor');
     Route::get('/dashboards/booking-current/admin','DashboardController@getBookingCurrentByAdmin');
@@ -37,7 +40,7 @@ Route::middleware('auth:api')->group(function (){
     Route::get('/dashboards/booking-current/doctor/complete','DashboardController@getBookingCurrentByDoctorComplete');
 
     Route::get('/notifications','NotificationController@index');
-    
+
     Route::get('/appointments', 'AppointmentController@index');
     Route::put('/appointments/{appointment}', 'AppointmentController@updateStatus');
     Route::get('/appointments/detail/{id}', 'AppointmentController@getDetail');
@@ -70,25 +73,25 @@ Route::middleware('auth:api')->group(function (){
     Route::get('/number-bookings/doctor/pending','NumberBookingController@getListPending');
     Route::get('/number-bookings/doctor','NumberBookingController@getListByDoctor');
     Route::put('/number-bookings/{numberBooking}','NumberBookingController@confirm');
-    
-    Route::post('/doctors','DoctorController@store'); 
-    Route::put('/doctors/{doctor}','DoctorController@update'); 
+
+    Route::post('/doctors','DoctorController@store');
+    Route::put('/doctors/{doctor}','DoctorController@update');
     Route::put('/doctors/block/{doctor}','DoctorController@blockDoctor');
     Route::delete('/doctors/{user}','DoctorController@delete');
 
-    Route::get('/receptionists','ReceptionistController@index'); 
+    Route::get('/receptionists','ReceptionistController@index');
     Route::post('/receptionists','ReceptionistController@store');
     Route::put('/receptionists/{receptionist}','ReceptionistController@update');
     Route::get('/receptionists/detail/{id}','ReceptionistController@getDetail');
 
-    Route::get('/nurses','NurseController@index'); 
+    Route::get('/nurses','NurseController@index');
     Route::get('/nurses/detail/{id}','NurseController@getDetail');
     Route::post('/nurses','NurseController@store');
-    
+
     Route::post('/services', 'ServiceController@store');
     Route::put('/services/{service}', 'ServiceController@update');
     Route::delete('/services/{service}', 'ServiceController@destroy');
-    
+
     Route::get('/roles', 'RoleController@index');
     Route::post('/roles', 'RoleController@store');
     Route::put('/roles/{role}', 'RoleController@update');
@@ -115,5 +118,5 @@ Route::middleware('auth:api')->group(function (){
     Route::get('/contacts/{id}','ContactController@getDetail');
     Route::put('/contacts/{contact}','ContactController@update');
     Route::delete('/contacts/{contact}','ContactController@destroy');
-    
+
 });
