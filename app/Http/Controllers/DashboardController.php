@@ -50,6 +50,8 @@ class DashboardController extends Controller
         ->select('number_bookings.*','appointments.patient_name','appointments.phone_number','appointments.date_time', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
         ->where('re_examination.date_of_examination','>=',$startDate)
         ->where('re_examination.date_of_examination','<',$endDate)
+        ->where('doctors.id','=',$checkLogin[0]->doctor_id)
+        ->where('re_examination.status','=',1)
         ->get();
 
         $getListBookingToDay = DB::table('number_bookings')
@@ -82,6 +84,17 @@ class DashboardController extends Controller
         $startDate = CarBon::now()->toDateString();
         $endDate = CarBon::now()->addDay()->toDateString();
 
+        $getListReExaminationToDay = DB::table('re_examination')
+        ->join('number_bookings','number_bookings.id','=','re_examination.number_booking_id')
+        ->join('appointments','appointments.id','=','number_bookings.appointment_id')
+        ->join('doctors','doctors.id','=','appointments.doctor_id')
+        ->select('number_bookings.*','appointments.patient_name','appointments.phone_number','appointments.date_time', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
+        ->where('re_examination.date_of_examination','>=',$startDate)
+        ->where('re_examination.date_of_examination','<',$endDate)
+        ->where('doctors.id','=',$checkLogin[0]->doctor_id)
+        ->where('re_examination.status','=',2)
+        ->get();
+
         $getListBookingToDay = DB::table('number_bookings')
         ->join('appointments','appointments.id','=','number_bookings.appointment_id')
         ->join('doctors','doctors.id','=','appointments.doctor_id')
@@ -92,7 +105,10 @@ class DashboardController extends Controller
         ->where('appointments.date_time','<',$endDate)
         ->orderBy('number_bookings.id','DESC')
         ->get();
-        return response()->json($getListBookingToDay, 200);
+        return response()->json([
+            'bookings' => $getListBookingToDay,
+            're_examinations' => $getListReExaminationToDay
+        ],200);
     }
 
     // Admin
@@ -103,6 +119,16 @@ class DashboardController extends Controller
 
         $startDate = CarBon::now()->toDateString();
         $endDate = CarBon::now()->addDay()->toDateString();
+        
+        $getListReExaminationToDay = DB::table('re_examination')
+        ->join('number_bookings','number_bookings.id','=','re_examination.number_booking_id')
+        ->join('appointments','appointments.id','=','number_bookings.appointment_id')
+        ->join('doctors','doctors.id','=','appointments.doctor_id')
+        ->select('number_bookings.*','appointments.patient_name','appointments.phone_number','appointments.date_time', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
+        ->where('re_examination.date_of_examination','>=',$startDate)
+        ->where('re_examination.date_of_examination','<',$endDate)
+        ->where('re_examination.status','=',1)
+        ->get();
 
         $getListBookingToDay = DB::table('number_bookings')
         ->join('appointments','appointments.id','=','number_bookings.appointment_id')
@@ -113,7 +139,10 @@ class DashboardController extends Controller
         ->where('appointments.date_time','<',$endDate)
         ->orderBy('number_bookings.id','DESC')
         ->get();
-        return response()->json($getListBookingToDay, 200);
+        return response()->json([
+            'bookings' => $getListBookingToDay,
+            're_examinations' => $getListReExaminationToDay
+        ], 200);
     }
 
     public function getBookingCurrentByAdminComplete(){
@@ -122,6 +151,16 @@ class DashboardController extends Controller
 
         $startDate = CarBon::now()->toDateString();
         $endDate = CarBon::now()->addDay()->toDateString();
+        
+        $getListReExaminationToDay = DB::table('re_examination')
+        ->join('number_bookings','number_bookings.id','=','re_examination.number_booking_id')
+        ->join('appointments','appointments.id','=','number_bookings.appointment_id')
+        ->join('doctors','doctors.id','=','appointments.doctor_id')
+        ->select('number_bookings.*','appointments.patient_name','appointments.phone_number','appointments.date_time', DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
+        ->where('re_examination.date_of_examination','>=',$startDate)
+        ->where('re_examination.date_of_examination','<',$endDate)
+        ->where('re_examination.status','=',2)
+        ->get();
 
         $getListBookingToDay = DB::table('number_bookings')
         ->join('appointments','appointments.id','=','number_bookings.appointment_id')
@@ -132,7 +171,10 @@ class DashboardController extends Controller
         ->where('appointments.date_time','<',$endDate)
         ->orderBy('number_bookings.id','DESC')
         ->get();
-        return response()->json($getListBookingToDay, 200);
+        return response()->json([
+            'bookings' => $getListBookingToDay,
+            're_examinations' => $getListReExaminationToDay
+        ], 200);
     }
 
     
