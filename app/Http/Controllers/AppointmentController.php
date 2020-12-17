@@ -25,7 +25,7 @@ class AppointmentController extends Controller
         $appointments = DB::table('appointments')
         ->join('doctors','doctors.id','=','appointments.doctor_id')
         ->select('appointments.*','doctors.first_name as first_name_doctor','doctors.last_name as last_name_doctor',DB::raw("concat(doctors.first_name,' ',doctors.last_name) as doctor_name"))
-        ->where('appointments.status','!=',3)
+        ->where('appointments.status','=',1)
         ->get(); 
         return response()->json($appointments, 200);
     }
