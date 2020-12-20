@@ -51,7 +51,7 @@ class AppointmentController extends Controller
         ->select('number_bookings.id as number_booking_id','appointments.id','doctors.first_name as doctor_first_name','doctors.last_name as doctor_last_name','appointments.status','appointments.has_people','appointments.date_time','appointments.patient_name')
         ->orderBy('appointments.id', 'DESC')
         ->where('appointments.user_id',$user_id)
-        ->whereIn('appointments.status','=',2)
+        ->whereIn('appointments.status',[1,2])
         ->get();
         
         return response()->json($appointments);
