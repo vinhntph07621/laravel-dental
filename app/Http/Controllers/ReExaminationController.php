@@ -42,6 +42,7 @@ class ReExaminationController extends Controller
         ->join('appointments','appointments.id','=','number_bookings.appointment_id')
         ->select('re_examination.*')
         ->where('appointments.user_id','=',$user_id)
+        ->where('re_examination.status','=',1)
         ->get();
         
         return response()->json($reExaminationByUser, 200);
